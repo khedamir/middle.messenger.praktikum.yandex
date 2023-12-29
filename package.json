@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "engines": {
-    "node": ">=16.16.0"
+    "node": ">=18.16.0"
   },
   "devDependencies": {
     "handlebars": "^4.7.8",
