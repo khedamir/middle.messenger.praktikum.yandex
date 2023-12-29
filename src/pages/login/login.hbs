@@ -1,0 +1,7 @@
+<div class="content-wrapper">
+  {{#> AuthForm title='Sign in' label='Sign up' description='Don\'t have an account?' otherPage='register'}}
+    {{> Input label="Login" error='error' error_message='Неверный логин' value='kheda' }}
+    {{> Input label="Password" value='' }}
+    {{> Button label='Sign in' type='green' page='chat'}}
+  {{/AuthForm}}
+</div>

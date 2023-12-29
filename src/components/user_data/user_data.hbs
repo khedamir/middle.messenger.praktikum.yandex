@@ -1,0 +1,27 @@
+{{#> DataLayout}}
+  <div class="user-data__img">
+    <input id="user-image__input" type="file">
+    {{#if image}}
+    <img src="user-image" alt="user-image">
+    {{else}}
+    <div class="user-image__empty">
+        <img src="./svg/user-icon.svg" alt="user-empty-image">
+    </div>
+    {{/if}}
+    <label for="user-image__input"><img class="user-image__change" src="./svg/pen-icon.svg" alt="change-image"></label>
+  </div>
+  <div class="user-data__form">
+    <form action="">
+      {{> Input label='Name'}}
+      {{> Input label='Surname'}}
+      {{> Input label='Phone'}}
+      {{> Input label='Email'}}
+      {{> Input label='Login'}}
+      {{> Button label='Save' type='green' page='error'}}
+    </form>
+  </div>
+  <div class="settings">
+    <button class="settings-change-password" page="password">Change password</button>
+    <button class="settings-logout" page="login">Logout</button>
+  </div>
+{{/DataLayout}}
