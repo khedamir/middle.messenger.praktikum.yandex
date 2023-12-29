@@ -21,4 +21,4 @@
 ## Cсылки
 
 **Макет в Figma:** https://www.figma.com/file/DFmRWs0kzZCMAFyQcmJVle/My-Messenger?node-id=48710%3A3532&mode=dev</li>  
-**Развернутый сайт на Netlify:**
+**Развернутый сайт на Netlify:** https://deploy--jocular-crisp-d5d95b.netlify.app/

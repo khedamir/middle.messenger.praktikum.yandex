@@ -37,44 +37,42 @@
     gap: 4px;
     flex: 1;
 
-    /* Стилизация вертикального скроллбара */
     &::-webkit-scrollbar {
-      width: 2px; /* Ширина скроллбара в WebKit браузерах */
+      width: 2px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $gray-color; /* Цвет ползунка скроллбара в WebKit браузерах */
+      background-color: $gray-color; 
     }
 
     &::-webkit-scrollbar-track {
-      background-color: #f1f1f1; /* Цвет фона скроллбара в WebKit браузерах */
+      background-color: #f1f1f1; 
     }
 
     &::-moz-scrollbar {
-      width: 2px; /* Ширина скроллбара в Firefox */
+      width: 2px; 
     }
 
     &::-moz-scrollbar-thumb {
-      background-color: $gray-color; /* Цвет ползунка скроллбара в Firefox */
+      background-color: $gray-color; 
     }
 
     &::-moz-scrollbar-track {
-      background-color: #f1f1f1; /* Цвет фона скроллбара в Firefox */
+      background-color: #f1f1f1;
     }
 
     &::-ms-scrollbar {
-      width: 2px; /* Ширина скроллбара в Microsoft Edge */
+      width: 2px;
     }
 
     &::-ms-scrollbar-thumb {
-      background-color: $gray-color; /* Цвет ползунка скроллбара в Microsoft Edge */
+      background-color: $gray-color;
     }
 
     &::-ms-scrollbar-track {
-      background-color: #f1f1f1; /* Цвет фона скроллбара в Microsoft Edge */
+      background-color: #f1f1f1;
     }
 
-    /* Дополнительные стили для всех браузеров */
     overflow-y: scroll;
   }
 }
