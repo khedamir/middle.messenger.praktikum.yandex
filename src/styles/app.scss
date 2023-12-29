@@ -1,0 +1,28 @@
+@import "config.scss";
+
+@import "/src/pages/login/login.scss";
+@import "/src/pages/register/register.scss";
+@import "/src/pages/chat/chat.scss";
+@import "/src/pages/profile/profile.scss";
+@import "/src/pages/password/password.scss";
+@import "/src/pages/404/404.scss";
+
+@import "/src/components/auth_form/auth_form";
+@import "/src/components/button/button";
+@import "/src/components/input/input";
+@import "/src/components/chats/chats";
+@import "/src/components/search/search";
+@import "/src/components/chat_item/chat_item";
+@import "/src/components/chat_block/chat_block";
+@import "/src/components/chat_header/chat_header";
+@import "/src/components/chat_input/chat_input";
+@import "/src/components/user_icon/user_icon";
+@import "/src/components/messages/messages";
+@import "/src/components/message/message";
+@import "/src/components/user_data/user_data";
+@import "/src/components/password_change/password_change";
+@import "/src/components/data_layout/data_layout";
+
+.layout {
+  display: flex;
+}

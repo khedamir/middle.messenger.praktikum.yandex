@@ -1,0 +1,15 @@
+.user-data {
+  width: 100%;
+  max-width: 582px;
+  padding: 88px 36px 34px;
+  border: 1px solid $green-level-two;
+  border-radius: 30px;
+  position: relative;
+
+  &__form {
+    button {
+      max-width: 280px;
+      margin: 0 auto;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<div class="chats">
+  <div class="chats-header">
+    <button class="chats-header__button" page="profile">Profile</button>
+  </div>
+  {{> Search}}
+  <div class="chats-items">
+    {{#each (chats)}}
+      {{> ChatItem  }}
+    {{/each}}
+  </div>
+</div>

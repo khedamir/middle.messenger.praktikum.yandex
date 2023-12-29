@@ -1,0 +1,20 @@
+<div class="message message__{{type}}">
+  {{> UserIcon}}
+  {{#if image}}
+   <div class="message-block message-block__image">
+     <img src="/src/assets/background-image.jpg" alt="">
+     <span class="description">
+      <img class="sent" src="/src/assets/svg/sent-icon.svg" alt="sent">
+      <span class="time">11:56</span>
+     </span>
+   </div>
+  {{else}}
+  <div class="message-block message-block__text">
+    <span class="text">{{text}}</span>
+    <span class="description">
+      <img class="sent" src="/src/assets/svg/sent-icon.svg" alt="sent">
+      <span class="time">11:56</span>
+    </span>
+  </div>
+  {{/if}}
+</div>
