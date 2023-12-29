@@ -1,0 +1,72 @@
+.user-data {
+  &__img {
+    position: absolute;
+    top: -110px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 180px;
+    height: 180px;
+    background-color: $green-level-two;
+    border-radius: 30px;
+
+    #user-image__input {
+      display: none;
+    }
+
+    .user-image {
+      &__empty {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &__change {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+          animation: rotate 0.5s ease-in-out alternate;
+        }
+      }
+    }
+  }
+
+  .settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+
+    button {
+      background-color: transparent;
+      border: none;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &-change-password {
+      color: $orange-color;
+    }
+
+    &-logout {
+      color: $red-color;
+    }
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
