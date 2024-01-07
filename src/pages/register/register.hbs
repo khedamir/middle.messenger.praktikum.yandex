@@ -1,0 +1,11 @@
+<div class="content-wrapper">
+  {{#> AuthForm title='Sign up' label='Sign in' description='Do you have an account?' otherPage='login'}}
+    {{> Input label="Email" name='email' }}
+    {{> Input label="Login" name='login' }}
+    {{> Input label="Name" name='first_name'  }}
+    {{> Input label="Surname" name='second_name' }}
+    {{> Input label="Phone" name='phone' }}
+    {{> Input label="Password" value='' name='password' }}
+    {{> Button label='Sign up' type='green' page='chat' }}
+  {{/AuthForm}}
+</div>

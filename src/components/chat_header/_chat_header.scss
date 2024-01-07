@@ -1,0 +1,42 @@
+.chat-header {
+  width: 100%;
+  background-color: $green-level-two;
+  height: 54px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .user-icon {
+    width: 37px;
+    height: 37px;
+  }
+
+  &__description {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    p {
+      font-size: 13px;
+      font-weight: 600;
+    }
+  }
+
+  &__settings {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($color: #fff, $alpha: 0.8);
+    }
+
+    &.is--active {
+      background-color: rgba($color: #fff, $alpha: 0.8);
+    }
+  }
+}
