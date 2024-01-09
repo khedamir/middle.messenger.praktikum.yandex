@@ -2,15 +2,15 @@
   max-height: calc(100vh - 54px - 55px);
   min-height: calc(100vh - 54px - 55px);
   overflow-y: scroll;
+
   &::-webkit-scrollbar {
     display: none;
   }
 
   /* Скрываем scrollbar для IE, Edge и Firefox */
-  & {
-    -ms-overflow-style: none; /* IE и Edge */
-    scrollbar-width: none; /* Firefox */
-  }
+
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
 
   &-list {
     height: fit-content;

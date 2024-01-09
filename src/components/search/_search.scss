@@ -1,5 +1,6 @@
 .search {
   padding: 10px;
+
   &__container {
     display: flex;
     flex-direction: column;
@@ -44,9 +45,10 @@
   &__element:focus + &__label {
     width: 34px;
     padding-left: 6px;
+
     span {
       visibility: hidden;
-      width: 0px;
+      width: 0;
     }
   }
 }

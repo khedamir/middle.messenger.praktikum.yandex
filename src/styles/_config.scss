@@ -1,15 +1,12 @@
 // variables
 $font-family: "Inter", sans-serif;
-$black-color: #000000;
-$white-color: #ffffff;
-
+$black-color: #000;
+$white-color: #fff;
 $dark-color: #393939;
-$gray-color: #999999;
-
+$gray-color: #999;
 $green-level-one: #f3f9fa;
 $green-level-two: #e1eef2;
 $green-level-three: #c4dfe6;
-
 $green-color: #66A5AD;
 $dark-green: #07575b;
 $red-color: #ce5a57;
@@ -20,6 +17,7 @@ $orange-color: #e1b16a;
   box-sizing: border-box;
   font-family: $font-family;
 }
+
 body {
   margin: 0;
   color: $dark-color;
@@ -52,7 +50,7 @@ p {
   width: 100%;
   min-height: 100vh;
 
-  @media (max-width: 760px) {
+  @media (width <= 760px) {
     padding: 24px;
   }
 }
