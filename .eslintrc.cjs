@@ -30,6 +30,7 @@ module.exports = {
     'prefer-const': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/ban-ts-comment': 'warn',
+    '@typescript-eslint/no-explicit-any': 'warn',
     'prettier/prettier': [
       'warn',
       {

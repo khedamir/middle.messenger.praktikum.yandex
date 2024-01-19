@@ -1,37 +1,14 @@
 import Handlebars from 'handlebars';
 import * as Components from './components';
-import * as Pages from './pages';
+import { navigate } from './core/navigate';
+import { registerComponent } from './core/resgiterComponent';
+import Block from './core/Block';
 
-const pages = {
-  login: [Pages.LoginPage],
-  register: [Pages.RegisterPage],
-  chat: [Pages.ChatPage],
-  profile: [Pages.ProfilePage],
-  password: [Pages.Password],
-  error: [Pages.Error404],
-};
+Handlebars.registerPartial('AuthForm', Components.AuthForm);
+Handlebars.registerPartial('DataLayout', Components.DataLayout);
 
-Object.entries(Components).forEach(([name, component]) => {
-  Handlebars.registerPartial(name, component);
+Object.entries(Components).forEach((component) => {
+  registerComponent(component[0], component[1] as typeof Block);
 });
-
-function navigate(page: string) {
-  // @ts-ignore
-  const [source, context] = pages[page];
-  const container = document.getElementById('app')!;
-  container.innerHTML = Handlebars.compile(source)(context);
-}
 
 document.addEventListener('DOMContentLoaded', () => navigate('login'));
-
-document.addEventListener('click', (e) => {
-  //@ts-expect-error
-  const page = e.target.getAttribute('page');
-  console.log(page);
-  if (page) {
-    navigate(page);
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-  }
-});

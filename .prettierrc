@@ -7,14 +7,5 @@
   "bracketSpacing": true,
   "trailingComma": "all",
   "arrowParens": "always",
-  "endOfLine": "lf",
-  "plugins": ["@prettier/plugin-handlebars"],
-  "overrides": [
-    {
-      "files": ["*.hbs"],
-      "options": {
-        "parser": "glimmer"
-      }
-    }
-  ]
+  "endOfLine": "lf"
 }

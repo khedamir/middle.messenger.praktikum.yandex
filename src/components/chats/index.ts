@@ -1,4 +1,4 @@
-export { default as Chats } from './chats.hbs?raw';
+export { Chats } from './chats.ts';
 import Handlebars from 'handlebars';
 
 Handlebars.registerHelper('chats', () => {

@@ -1,1 +1,1 @@
-export { default as UserData } from './user_data.hbs?raw';
+export { UserData } from './user_data.ts';

@@ -1,6 +1,8 @@
 export { AuthForm } from './auth_form';
 export { Button } from './button';
 export { Input } from './input';
+export { InputField } from './input_field';
+export { ErrorLine } from './error_line';
 export { Chats } from './chats';
 export { Search } from './search';
 export { ChatItem } from './chat_item';

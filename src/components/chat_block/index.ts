@@ -1,1 +1,1 @@
-export { default as ChatBlock } from './chat_block.hbs?raw';
+export { ChatBlock } from './chat_block.ts';
