@@ -1,8 +1,8 @@
 export { AuthForm } from './auth_form';
 export { Button } from './button';
 export { Input } from './input';
-export { InputField } from './input_field';
 export { ErrorLine } from './error_line';
+export { InputField } from './input_field';
 export { Chats } from './chats';
 export { Search } from './search';
 export { ChatItem } from './chat_item';
@@ -10,6 +10,8 @@ export { UserIcon } from './user_icon';
 export { ChatBlock } from './chat_block';
 export { ChatHeader } from './chat_header';
 export { ChatInput } from './chat_input';
+export { ChatInputButton } from './chat_input_button';
+export { ChatInputField } from './chat_input_field';
 export { Messages } from './messages';
 export { Message } from './message';
 export { UserData } from './user_data';

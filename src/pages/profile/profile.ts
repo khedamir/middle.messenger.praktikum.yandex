@@ -1,9 +1,8 @@
-import Block from '../../core/Block';
+import Block, { RefType } from '../../core/Block';
 import NodeElement from './profile.hbs?raw';
 
-export class ProfilePage extends Block {
+export class ProfilePage extends Block<object, RefType> {
   protected render(): string {
-    return '<p>profile page</p>';
-    // return LoginComponent;
+    return NodeElement;
   }
 }

@@ -1,15 +1,12 @@
 import Block, { IProps, RefType } from '../../core/Block';
-import NodeElement from './button.hbs?raw';
+import NodeElement from './chat_input_button.hbs?raw';
 
-interface ButtonProps extends IProps {
-  classes: string;
-  label: string;
-  page: string;
+interface ChatInputButtonProps extends IProps {
   onClick?: (e: Event) => void;
 }
 
-export class Button extends Block<ButtonProps, RefType> {
-  constructor(props: ButtonProps) {
+export class ChatInputButton extends Block<ChatInputButtonProps, RefType> {
+  constructor(props: ChatInputButtonProps) {
     super(props);
   }
 

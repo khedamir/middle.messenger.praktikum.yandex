@@ -1,31 +1,25 @@
 import Block, { IProps } from '../../core/Block';
-import NodeElement from './input_field.hbs?raw';
+import NodeElement from './chat_input_field.hbs?raw';
 import { Input } from '../input';
-import { ErrorLine } from '../error_line';
 
-interface InputFieldProps extends IProps {
+interface ChatInputFieldProps extends IProps {
   value: string;
-  error: string;
-  name: string;
-  label: string;
   onBlur: () => boolean;
   onChange: (e: Event) => void;
 }
 
-export class InputField extends Block<
-  InputFieldProps,
+export class ChatInputField extends Block<
+  ChatInputFieldProps,
   {
     input: Input;
-    errorLine: ErrorLine;
   }
 > {
-  constructor(props: InputFieldProps) {
+  constructor(props: ChatInputFieldProps) {
     super({
       ...props,
       onBlur: () => this.validate(),
       onChange: (e) => this.setValue(e),
       value: '',
-      error: '',
     });
   }
 
@@ -42,16 +36,12 @@ export class InputField extends Block<
   }
 
   private validate(): boolean {
-    const value = this.refs.input.element.value;
+    const value = this.props.value;
 
     const error = this.props.validate?.(value);
     if (error) {
-      this.props.error = 'error';
-      this.refs.errorLine.setProps({ error_message: error });
       return false;
     }
-    this.props.error = '';
-    this.refs.errorLine.setProps({ error_message: '' });
     return true;
   }
   protected render(): string {

@@ -12,6 +12,11 @@
     opacity: 0.5;
   }
 
+  &[disabled] {
+    opacity: 0.5; 
+    cursor: not-allowed;
+  }
+
   &__light {
     background-color: transparent;
     border: 1px solid $white-color;

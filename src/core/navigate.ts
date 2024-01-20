@@ -9,9 +9,7 @@ const pages = {
   error: Pages.ErrorPage,
 };
 
-type PagesType = 'login' | 'chat';
-
-export function navigate(page: PagesType) {
+export function navigate(page: keyof typeof pages) {
   const app = document.getElementById('app');
 
   const Component = pages[page];

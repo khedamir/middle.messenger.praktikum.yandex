@@ -1,22 +1,16 @@
 <div class='input input__{{error}}'>
   <label class='input__container'>
-    {{!-- <input
-      class='input__element'
-      placeholder=''
-      value='{{value}}'
-      name='{{name}}'
-    /> --}}
     {{{Input
       name=name
+      type=type
+      value=value
       ref='input'
       placeholder=''
-      name=name
       classes='input__element'
       onBlur=onBlur
+      onChange=onChange
     }}}
     <div class='input__label'>{{label}}</div>
-    {{#if error_message}}
-      {{{ErrorLine error_message=error_message ref='errorLine'}}}
-    {{/if}}
+    {{{ErrorLine error_message=error_message ref='errorLine'}}}
   </label>
 </div>

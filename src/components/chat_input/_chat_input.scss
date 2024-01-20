@@ -45,6 +45,8 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    background: none;
+    border: none;
 
     &:hover {
       opacity: 0.8;

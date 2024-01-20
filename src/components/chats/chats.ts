@@ -1,7 +1,8 @@
-import Block from '../../core/Block';
+import Block, { RefType } from '../../core/Block';
+import { navigate } from '../../core/navigate';
 import NodeElement from './chats.hbs?raw';
 
-export class Chats extends Block {
+export class Chats extends Block<object, RefType> {
   constructor() {
     super({
       chats: [
@@ -42,6 +43,9 @@ export class Chats extends Block {
           time: '01.01.2024',
         },
       ],
+      toProfile: () => {
+        navigate('profile');
+      },
     });
   }
   protected render(): string {

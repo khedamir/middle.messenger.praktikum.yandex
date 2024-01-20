@@ -7,21 +7,21 @@ interface EventListeners {
 }
 
 export type RefType = {
-  [key: string]: HTMLElement | Block<IProps, RefType>;
+  [key: string]: HTMLElement | Block<IProps, RefType, ElementType>;
 };
 
-interface IProps {
+export type ElementType = HTMLElement | HTMLInputElement | null;
+
+export interface IProps {
   [key: string]: any;
   events?: EventListeners;
 }
 
-export interface BlockClass<P extends IProps, R extends RefType>
-  extends Function {
-  new (props: P): Block<P, R>;
-  componentName?: string;
-}
-
-class Block<Props extends IProps, Refs extends RefType = RefType> {
+class Block<
+  Props extends IProps,
+  Refs extends RefType = RefType,
+  Element extends ElementType = null,
+> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -31,13 +31,13 @@ class Block<Props extends IProps, Refs extends RefType = RefType> {
   };
 
   public readonly id = nanoid(6);
-  protected props: IProps = {};
-  protected refs: RefType = {} as RefType;
+  protected props: Props = {} as Props;
+  protected refs: Refs = {} as Refs;
   private children: Block<Props, Refs>[] = [];
   private eventBus: () => EventBus;
-  private _element: HTMLElement | null = null;
+  private _element: Element = null as Element;
 
-  constructor(props: IProps = {}) {
+  constructor(props: Props = {} as Props) {
     this.props = this._makePropsProxy(props);
 
     const eventBus = new EventBus();
@@ -123,7 +123,7 @@ class Block<Props extends IProps, Refs extends RefType = RefType> {
 
   componentWillUnmount() {}
 
-  setProps = (nextProps: Props) => {
+  setProps = (nextProps: Partial<Props>) => {
     if (!nextProps) {
       return;
     }
@@ -144,7 +144,7 @@ class Block<Props extends IProps, Refs extends RefType = RefType> {
       this._element.replaceWith(newElement);
     }
 
-    this._element = newElement;
+    this._element = newElement as Element;
 
     this._addEvents();
   }
@@ -192,7 +192,7 @@ class Block<Props extends IProps, Refs extends RefType = RefType> {
     return this._element;
   }
 
-  _makePropsProxy(props: IProps) {
+  _makePropsProxy(props: Props) {
     return new Proxy(props, {
       get: (target, prop: string) => {
         const value = target[prop];
@@ -200,7 +200,7 @@ class Block<Props extends IProps, Refs extends RefType = RefType> {
       },
       set: (target, prop: string, value) => {
         const oldTarget = { ...target };
-        target[prop] = value;
+        target[prop as keyof Props] = value;
         this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },

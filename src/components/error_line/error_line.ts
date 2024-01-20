@@ -1,6 +1,16 @@
-import Block from '../../core/Block';
+import Block, { IProps, RefType } from '../../core/Block';
 
-export class ErrorLine extends Block {
+interface ErrorLineProps extends IProps {
+  error_message: string;
+}
+
+export class ErrorLine extends Block<ErrorLineProps, RefType, HTMLElement> {
+  constructor(props: ErrorLineProps) {
+    super({
+      ...props,
+      error_message: '',
+    });
+  }
   protected render(): string {
     return `
     <div class='input__text-error'>{{error_message}}</div>

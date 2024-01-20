@@ -1,31 +1,36 @@
-import Block, { RefType } from '../../core/Block';
+import Block, { IProps, RefType } from '../../core/Block';
 
-interface IProps {
+export interface InputProps extends IProps {
   ref: string;
   name: string;
+  value: string;
+  type: string;
   classes: string;
   placeholder: string;
   onBlur: (e: Event) => void;
+  onChange: (e: Event) => void;
 }
 
-export class Input extends Block<IProps, RefType> {
-  constructor(props: IProps) {
+export class Input extends Block<InputProps, RefType, HTMLInputElement> {
+  constructor(props: InputProps) {
     super({
       ...props,
       events: {
         blur: props.onBlur,
+        change: props.onChange,
       },
     });
   }
 
   protected render(): string {
-    const { classes, placeholder, ref, name } = this.props;
+    const { classes, placeholder, name, type, value } = this.props;
     return `
             <input
                 class="${classes}"
                 placeholder="${placeholder || ''}"
-                ref="${ref}"
                 name="${name}"
+                type="${type}"
+                value="${value}"
             />
         `;
   }
