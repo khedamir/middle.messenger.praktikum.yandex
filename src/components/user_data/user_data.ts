@@ -2,7 +2,7 @@ import { InputField } from '..';
 import Block from '../../core/Block';
 import NodeElement from './user_data.hbs?raw';
 import * as validators from '../../utils/validators';
-import { navigate } from '../../core/navigate';
+import router from '../../core/navigate';
 
 export class UserData extends Block<
   object,
@@ -46,10 +46,10 @@ export class UserData extends Block<
         console.log(first_name, second_name, phone, login, email, display_name);
       },
       logout: () => {
-        navigate('login');
+        router.go('/');
       },
       toPasswordChange: () => {
-        navigate('password');
+        router.go('/change-password');
       },
     });
   }

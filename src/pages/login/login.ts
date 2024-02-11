@@ -1,5 +1,5 @@
 import Block from '../../core/Block';
-import { navigate } from '../../core/navigate';
+import router from '../../core/navigate';
 import LoginComponent from './login.hbs?raw';
 import * as validators from '../../utils/validators';
 import { InputField } from '../../components';
@@ -26,10 +26,10 @@ export class LoginPage extends Block<
           return;
         }
         console.log(login, password);
-        navigate('chat');
+        router.go('/messenger');
       },
       toRegister: () => {
-        navigate('register');
+        router.go('/sign-up');
       },
     });
   }

@@ -2,19 +2,18 @@ import { InputField } from '../../components';
 import Block from '../../core/Block';
 import NodeElement from './register.hbs?raw';
 import * as validators from '../../utils/validators';
-import { navigate } from '../../core/navigate';
+import router from '../../core/navigate';
 
-export class RegisterPage extends Block<
-  object,
-  {
-    email: InputField;
-    login: InputField;
-    first_name: InputField;
-    second_name: InputField;
-    phone: InputField;
-    password: InputField;
-  }
-> {
+type Refs = {
+  email: InputField;
+  login: InputField;
+  first_name: InputField;
+  second_name: InputField;
+  phone: InputField;
+  password: InputField;
+};
+
+export class RegisterPage extends Block<object, Refs> {
   constructor() {
     super({
       validate: {
@@ -44,10 +43,10 @@ export class RegisterPage extends Block<
           return;
         }
         console.log(login, password, email, first_name, second_name, phone);
-        navigate('login');
+        router.go('/');
       },
       toLogin: () => {
-        navigate('login');
+        router.go('/');
       },
     });
   }

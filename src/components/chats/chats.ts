@@ -1,5 +1,5 @@
 import Block, { RefType } from '../../core/Block';
-import { navigate } from '../../core/navigate';
+import router from '../../core/navigate';
 import NodeElement from './chats.hbs?raw';
 
 export class Chats extends Block<object, RefType> {
@@ -44,7 +44,7 @@ export class Chats extends Block<object, RefType> {
         },
       ],
       toProfile: () => {
-        navigate('profile');
+        router.go('/settings');
       },
     });
   }

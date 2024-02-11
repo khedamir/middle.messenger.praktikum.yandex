@@ -1,4 +1,5 @@
-<div class='content-wrapper'>
+<div class="login">
+  <div class='content-wrapper'>
   {{#> AuthForm title='Sign in' label='Sign up' description='Don\'t have an account?' buttonClick=toRegister }}
     {{{InputField
       ref='login'
@@ -16,4 +17,5 @@
     }}}
     {{{Button label='Sign in' classes='button button__green' onClick=onLogin}}}
   {{/AuthForm}}
+</div>
 </div>
