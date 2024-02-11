@@ -1,0 +1,16 @@
+<div class='input input__{{error}}'>
+  <label class='input__container'>
+    {{{Input
+      name=name
+      type=type
+      value=value
+      ref='input'
+      placeholder=''
+      classes='input__element'
+      onBlur=onBlur
+      onChange=onChange
+    }}}
+    <div class='input__label'>{{label}}</div>
+    {{{ErrorLine error_message=error_message ref='errorLine'}}}
+  </label>
+</div>

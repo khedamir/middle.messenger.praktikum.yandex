@@ -1,11 +1,15 @@
-<div class="chats">
-  <div class="chats-header">
-    <button class="chats-header__button" page="profile">Profile</button>
+<div class='chats'>
+  <div class='chats-header'>
+    {{{Button
+      classes='chats-header__button'
+      label='Profile'
+      onClick=toProfile
+    }}}
   </div>
-  {{> Search}}
-  <div class="chats-items">
-    {{#each (chats)}}
-      {{> ChatItem  }}
+  {{{Search}}}
+  <div class='chats-items'>
+    {{#each chats}}
+      {{{ChatItem name=this.name message=this.message time=this.time}}}
     {{/each}}
   </div>
 </div>

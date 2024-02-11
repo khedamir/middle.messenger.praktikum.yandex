@@ -1,14 +1,16 @@
 .chat {
   position: relative;
+
   .left-content {
     min-width: 310px;
     transition: all 0.3s ease;
   }
+
   .right-content {
     padding: 0;
   }
 
-  @media (max-width: 960px) {
+  @media (width <= 960px) {
     .left-content {
       min-width: 260px;
     }
@@ -19,6 +21,7 @@
           width: 24px;
           height: 24px;
         }
+
         &-block__image {
           width: 70%;
         }
@@ -30,7 +33,7 @@
     }
   }
 
-  @media (max-width: 580px) {
+  @media (width <= 580px) {
     .left-content,
     .right-content {
       position: absolute;

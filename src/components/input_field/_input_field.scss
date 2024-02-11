@@ -14,7 +14,9 @@
     font-size: 13px;
     font-weight: 500;
     user-select: none;
-    transition: font-size 0.3s, transform 0.3s;
+    transition:
+      font-size 0.3s,
+      transform 0.3s;
   }
 
   &__element {
@@ -37,17 +39,12 @@
     color: $red-color;
     font-size: 8px;
     font-weight: 400;
-    display: none;
   }
 
   &__element:not(:placeholder-shown) + &__label,
   &__element:focus + &__label {
     transform: translateY(-36px);
     font-size: 9px;
-  }
-
-  &__error &__text-error {
-    display: block;
   }
 
   &__error &__element {

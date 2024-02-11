@@ -1,11 +1,47 @@
-<div class="content-wrapper">
-  {{#> AuthForm title='Sign up' label='Sign in' description='Do you have an account?' otherPage='login'}}
-    {{> Input label="Email" name='email' }}
-    {{> Input label="Login" name='login' }}
-    {{> Input label="Name" name='first_name'  }}
-    {{> Input label="Surname" name='second_name' }}
-    {{> Input label="Phone" name='phone' }}
-    {{> Input label="Password" value='' name='password' }}
-    {{> Button label='Sign up' type='green' page='chat' }}
+<div class='content-wrapper'>
+  {{#> AuthForm title='Sign up' label='Sign in' description='Do you have an account?' buttonClick=toLogin}}
+    {{{InputField
+      ref='email'
+      type='text'
+      label='Email'
+      name='email'
+      validate=validate.email
+    }}}
+    {{{InputField
+      ref='login'
+      type='text'
+      label='Login'
+      name='login'
+      validate=validate.login
+    }}}
+    {{{InputField
+      ref='first_name'
+      type='text'
+      label='Name'
+      name='first_name'
+      validate=validate.first_name
+    }}}
+    {{{InputField
+      ref='second_name'
+      type='text'
+      label='Surname'
+      name='second_name'
+      validate=validate.second_name
+    }}}
+    {{{InputField
+      ref='phone'
+      type='text'
+      label='Phone'
+      name='phone'
+      validate=validate.phone
+    }}}
+    {{{InputField
+      ref='password'
+      type='password'
+      label='Password'
+      name='password'
+      validate=validate.password
+    }}}
+    {{{Button label='Sign up' classes='button button__green' onClick=onRegister}}}
   {{/AuthForm}}
 </div>

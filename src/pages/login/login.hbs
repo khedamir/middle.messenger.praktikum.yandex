@@ -1,7 +1,19 @@
-<div class="content-wrapper">
-  {{#> AuthForm title='Sign in' label='Sign up' description='Don\'t have an account?' otherPage='register' }}
-    {{> Input label="Login" error='error' error_message='Неверный логин' value='kheda' name='login' }}
-    {{> Input label="Password" value='' name='password' }}
-    {{> Button label='Sign in' type='green' page='chat'}}
+<div class='content-wrapper'>
+  {{#> AuthForm title='Sign in' label='Sign up' description='Don\'t have an account?' buttonClick=toRegister }}
+    {{{InputField
+      ref='login'
+      type='text'
+      label='Login'
+      name='login'
+      validate=validate.login
+    }}}
+    {{{InputField
+      ref='password'
+      type='password'
+      label='Password'
+      name='password'
+      validate=validate.password
+    }}}
+    {{{Button label='Sign in' classes='button button__green' onClick=onLogin}}}
   {{/AuthForm}}
 </div>

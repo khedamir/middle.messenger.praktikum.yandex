@@ -1,1 +1,1 @@
-export { default as Password } from './password.hbs?raw';
+export { PasswordPage } from './password.ts';

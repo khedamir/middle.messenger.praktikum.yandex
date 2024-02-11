@@ -16,6 +16,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+
     p {
       font-size: 13px;
       font-weight: 600;
@@ -32,11 +33,11 @@
     cursor: pointer;
 
     &:hover {
-      background-color: rgba($color: #fff, $alpha: 0.8);
+      background-color: rgba($color: #fff, $alpha: 80%);
     }
 
-    &.is--active {
-      background-color: rgba($color: #fff, $alpha: 0.8);
+    &.is-active {
+      background-color: rgba($color: #fff, $alpha: 80%);
     }
   }
 }

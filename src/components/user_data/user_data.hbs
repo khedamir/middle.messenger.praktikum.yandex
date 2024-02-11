@@ -1,28 +1,68 @@
 {{#> DataLayout}}
-  <div class="user-data__img">
-    <input id="user-image__input" type="file" name="avatar">
+  <div class='user-data__img'>
+    <input id='user-image-input' type='file' name='avatar' />
     {{#if image}}
-    <img src="user-image" alt="user-image">
+      <img src='user-image' alt='user-image' />
     {{else}}
-    <div class="user-image__empty">
-        <img src="./svg/user-icon.svg" alt="user-empty-image">
-    </div>
+      <div class='user-image__empty'>
+        <img src='./svg/user-icon.svg' alt='user-empty-image' />
+      </div>
     {{/if}}
-    <label for="user-image__input"><img class="user-image__change" src="./svg/pen-icon.svg" alt="change-image"></label>
+    <label for='user-image-input'><img
+        class='user-image__change'
+        src='./svg/pen-icon.svg'
+        alt='change-image'
+      /></label>
   </div>
-  <div class="user-data__form">
-    <form action="">
-      {{> Input label='Name' name='first_name' }}
-      {{> Input label='Surname' name='second_name' }}
-      {{> Input label='Phone' name='phone' }}
-      {{> Input label='Email' name='email' }}
-      {{> Input label='Login' name='login' }}
-      {{> Input label='Display name' name='display_name' }}
-      {{> Button label='Save' type='green' page='error' }}
+  <div class='user-data__form'>
+    <form action=''>
+      {{{InputField
+        ref='first_name'
+        type='text'
+        label='Name'
+        name='first_name'
+        validate=validate.first_name
+      }}}
+      {{{InputField
+        ref='second_name'
+        type='text'
+        label='Surname'
+        name='second_name'
+        validate=validate.second_name
+      }}}
+      {{{InputField
+        ref='phone'
+        type='text'
+        label='Phone'
+        name='phone'
+        validate=validate.phone
+      }}}
+      {{{InputField
+        ref='email'
+        type='text'
+        label='Email'
+        name='email'
+        validate=validate.email
+      }}}
+      {{{InputField
+        ref='login'
+        type='text'
+        label='Login'
+        name='login'
+        validate=validate.login
+      }}}
+      {{{InputField
+        ref='display_name'
+        type='text'
+        label='Display Name'
+        name='display_name'
+        validate=validate.display_name
+      }}}
+      {{{Button label='Save' classes='button button__green' onClick=onSave }}}
     </form>
   </div>
-  <div class="settings">
-    <button class="settings-change-password" page="password">Change password</button>
-    <button class="settings-logout" page="login">Logout</button>
+  <div class='settings'>
+    {{{Button label='Change password' classes='settings-change-password' onClick=toPasswordChange }}}
+    {{{Button label='Logout' classes='settings-logout' onClick=logout }}}
   </div>
 {{/DataLayout}}
