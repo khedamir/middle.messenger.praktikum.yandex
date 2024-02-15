@@ -1,5 +1,5 @@
 import { Modal } from '..';
-import Block, { RefType } from '../../core/Block';
+import Block from '../../core/Block';
 import { deleteChat } from '../../services/chat';
 import NodeElement from './chat_settings.hbs?raw';
 
