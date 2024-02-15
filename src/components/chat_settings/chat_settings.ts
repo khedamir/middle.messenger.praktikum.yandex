@@ -23,21 +23,6 @@ export class ChatSettings extends Block<Props, Refs> {
       openChatUsers: () => {
         this.refs.modal.openModal();
       },
-
-      // addUser: () => {
-      //   const data: ChangeChatUsers = {
-      //     users: [103],
-      //     chatId: window.store.getState().openDialogChat!.id,
-      //   };
-      //   addUsers(data);
-      // },
-      // deleteUser: () => {
-      //   const data: ChangeChatUsers = {
-      //     users: [103],
-      //     chatId: window.store.getState().openDialogChat!.id,
-      //   };
-      //   deleteUsers(data);
-      // },
       deleteChat: () => {
         const data: { chatId: number } = {
           chatId: window.store.getState().openDialogChat!.id,

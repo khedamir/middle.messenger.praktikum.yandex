@@ -10,15 +10,6 @@ const pages = {
   error: Pages.ErrorPage,
 };
 
-// export function navigate(page: keyof typeof pages) {
-//   const app = document.getElementById('app');
-
-//   const Component = pages[page];
-//   const component = new Component();
-//   app?.replaceChildren(component.getContent()!);
-// }
-
-// history.pushState({}, '', '/');
 const router = new Router('#app');
 router
   .use('/', pages.login)

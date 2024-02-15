@@ -81,7 +81,6 @@ export class HTTPTransport {
       method,
       credentials: 'include',
       mode: 'cors',
-      // body: data ? JSON.stringify(data) : null,
     };
 
     if (!(data instanceof FormData)) {
@@ -92,14 +91,6 @@ export class HTTPTransport {
     }
 
     const response = await fetch(url, option);
-
-    // const response = await fetch(url, {
-    //   method,
-    //   credentials: 'include',
-    //   mode: 'cors',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: data ? JSON.stringify(data) : null,
-    // });
 
     const isJson = response.headers
       .get('content-type')
