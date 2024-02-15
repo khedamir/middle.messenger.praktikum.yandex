@@ -73,6 +73,9 @@
         name='display_name'
         validate=validate.display_name
       }}}
+      <div class="form-error">
+        {{{ErrorLine error_message=error_message ref='errorLine'}}}
+      </div>
       {{{Button label='Save' classes='button button__green' onClick=onSave }}}
     </form>
   </div>

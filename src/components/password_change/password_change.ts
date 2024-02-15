@@ -1,4 +1,4 @@
-import { InputField } from '..';
+import { ErrorLine, InputField } from '..';
 import Block from '../../core/Block';
 import NodeElement from './password_change.hbs?raw';
 import * as validators from '../../utils/validators';
@@ -9,6 +9,7 @@ export class PasswordChange extends Block<
   {
     oldPassword: InputField;
     newPassword: InputField;
+    errorLine: ErrorLine;
   }
 > {
   constructor() {
@@ -25,10 +26,15 @@ export class PasswordChange extends Block<
           return;
         }
 
-        updatePassword({ oldPassword, newPassword }).then(() => {
-          this.refs.oldPassword.clearValue();
-          this.refs.newPassword.clearValue();
-        });
+        updatePassword({ oldPassword, newPassword })
+          .then(() => {
+            this.refs.oldPassword.clearValue();
+            this.refs.newPassword.clearValue();
+          })
+          .catch((error) => {
+            this.refs.errorLine.setProps({ error_message: error });
+            console.log('change password error', error);
+          });
       },
     });
   }

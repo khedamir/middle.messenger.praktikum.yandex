@@ -24,7 +24,9 @@ export class CreateChat extends Block<Props, Refs> {
         e.preventDefault();
         const name = this.refs.chatName.getValue()!;
         console.log('value:', name);
-        createChat(name);
+        createChat(name).catch((error) => {
+          alert(`Error :( \n ${error}`);
+        });
       },
       value: '',
     });

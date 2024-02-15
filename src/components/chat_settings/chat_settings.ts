@@ -27,7 +27,9 @@ export class ChatSettings extends Block<Props, Refs> {
         const data: { chatId: number } = {
           chatId: window.store.getState().openDialogChat!.id,
         };
-        deleteChat(data);
+        deleteChat(data).catch((error) => {
+          alert(`Error :( \n ${error}`);
+        });
       },
     });
   }

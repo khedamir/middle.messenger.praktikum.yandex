@@ -12,6 +12,11 @@ const initApp = async () => {
   }
   const chats = await getChats();
   window.store.set({ user: me, chats });
+  const location = window.location.pathname;
+  if (location === '/' || location === 'signup') {
+    router.go('/messenger');
+    return;
+  }
   router.go(window.location.pathname);
 };
 

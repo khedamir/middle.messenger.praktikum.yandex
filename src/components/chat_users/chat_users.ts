@@ -27,7 +27,11 @@ class ChatUsers extends Block<Props, Refs> {
       onClick: (e: MouseEvent) => {
         e.preventDefault();
         const login = this.refs.userName.getValue()!;
-        searchUsers({ login }).then((result) => this.setUsers(result));
+        searchUsers({ login })
+          .then((result) => this.setUsers(result))
+          .catch((error) => {
+            alert(`Error :( \n ${error}`);
+          });
       },
       searchUsers: [],
       value: '',

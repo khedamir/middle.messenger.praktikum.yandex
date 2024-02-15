@@ -20,12 +20,16 @@ export class ChatUserItem extends Block<Props, RefType> {
           users: [props.user.id],
           chatId: window.store.getState().openDialogChat!.id,
         };
-        deleteUsers(data).then(() => {
-          const users = window.store
-            .getState()
-            .openDialogUsers.filter((item) => item.id !== props.user.id);
-          window.store.set({ openDialogUsers: users });
-        });
+        deleteUsers(data)
+          .then(() => {
+            const users = window.store
+              .getState()
+              .openDialogUsers.filter((item) => item.id !== props.user.id);
+            window.store.set({ openDialogUsers: users });
+          })
+          .catch((error) => {
+            alert(`Error :( \n ${error}`);
+          });
       },
     });
   }

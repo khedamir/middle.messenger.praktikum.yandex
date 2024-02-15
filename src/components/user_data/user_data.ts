@@ -1,4 +1,4 @@
-import { InputField } from '..';
+import { ErrorLine, InputField } from '..';
 import Block from '../../core/Block';
 import NodeElement from './user_data.hbs?raw';
 import * as validators from '../../utils/validators';
@@ -21,6 +21,7 @@ type Refs = {
   email: InputField;
   login: InputField;
   display_name: InputField;
+  errorLine: ErrorLine;
 };
 
 interface Props {
@@ -55,7 +56,10 @@ class UserData extends Block<Props, Refs> {
           display_name: this.refs.display_name.getValue()!,
         };
 
-        updateUser(userData);
+        updateUser(userData).catch((error) => {
+          this.refs.errorLine.setProps({ error_message: error });
+          console.log('Update user data error', error);
+        });
       },
       updateAvatar: (event: FileInputChangeEvent) => {
         const file = event.target?.files[0];

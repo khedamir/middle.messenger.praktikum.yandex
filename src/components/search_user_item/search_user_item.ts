@@ -19,12 +19,16 @@ export class SearchUserItem extends Block<Props, RefType> {
           users: [props.user.id],
           chatId: window.store.getState().openDialogChat!.id,
         };
-        addUsers(data).then(() => {
-          const users = window.store.getState().openDialogUsers;
-          window.store.set({
-            openDialogUsers: [{ ...props.user, role: 'regular' }, ...users],
+        addUsers(data)
+          .then(() => {
+            const users = window.store.getState().openDialogUsers;
+            window.store.set({
+              openDialogUsers: [{ ...props.user, role: 'regular' }, ...users],
+            });
+          })
+          .catch((error) => {
+            alert(`Error :( \n  ${error}`);
           });
-        });
       },
     });
   }
