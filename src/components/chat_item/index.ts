@@ -1,1 +1,3 @@
-export { ChatItem } from './chat_item.ts';
+import ChatItem from './chat_item';
+
+export default ChatItem;

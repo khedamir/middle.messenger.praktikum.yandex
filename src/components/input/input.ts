@@ -6,6 +6,7 @@ export interface InputProps extends IProps {
   value: string;
   type: string;
   classes: string;
+  id?: string;
   placeholder: string;
   onBlur: (e: Event) => void;
   onChange: (e: Event) => void;
@@ -23,7 +24,7 @@ export class Input extends Block<InputProps, RefType, HTMLInputElement> {
   }
 
   protected render(): string {
-    const { classes, placeholder, name, type, value } = this.props;
+    const { classes, placeholder, name, type, value, id } = this.props;
     return `
             <input
                 class="${classes}"
@@ -31,6 +32,14 @@ export class Input extends Block<InputProps, RefType, HTMLInputElement> {
                 name="${name}"
                 type="${type}"
                 value="${value}"
+                id="${id}"
+                autocomplete="${
+                  type === 'password'
+                    ? 'current-password'
+                    : name === 'login'
+                      ? 'username'
+                      : ''
+                }"
             />
         `;
   }

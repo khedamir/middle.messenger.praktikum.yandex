@@ -1,0 +1,17 @@
+<div class='modal-wrapper {{#if active}}is--active{{/if}}'>
+  <div class='modal'>
+    <div class='modal-header'>
+      <h2>{{title}}</h2>
+      {{{Button label='x' classes='chats-header__button' onClick=close }}}
+    </div>
+    <div class='modal-body'>
+      {{#if createChat}}
+        {{{CreateChat}}}
+      {{/if}}
+      {{#if chatUsers}}
+        {{{ChatUsers}}}
+      {{/if}}
+    </div>
+  </div>
+  <div class='dropdown'></div>
+</div>

@@ -2,15 +2,16 @@ import Block from '../../core/Block';
 import router from '../../core/navigate';
 import LoginComponent from './login.hbs?raw';
 import * as validators from '../../utils/validators';
-import { InputField } from '../../components';
+import { ErrorLine, InputField } from '../../components';
+import { signin } from '../../services/auth';
 
-export class LoginPage extends Block<
-  object,
-  {
-    login: InputField;
-    password: InputField;
-  }
-> {
+type Refs = {
+  login: InputField;
+  password: InputField;
+  errorLine: ErrorLine;
+};
+
+export class LoginPage extends Block<object, Refs> {
   constructor() {
     super({
       validate: {
@@ -22,11 +23,15 @@ export class LoginPage extends Block<
         const login = this.refs.login.getValue();
         const password = this.refs.password.getValue();
         if (!login || !password) {
-          console.log(!login && !password);
           return;
         }
-        console.log(login, password);
-        router.go('/messenger');
+        signin({
+          login,
+          password,
+        }).catch((error) => {
+          this.refs.errorLine.setProps({ error_message: error });
+          console.log('login error', error);
+        });
       },
       toRegister: () => {
         router.go('/sign-up');

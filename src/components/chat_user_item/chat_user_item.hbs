@@ -1,0 +1,10 @@
+<div class='user-item'>
+  <p>{{user.login}}</p>
+  {{#if isNotAdmin}}
+    {{{Button
+      classes='chats-header__button'
+      label='Delete'
+      onClick=deleteUser
+    }}}
+  {{/if}}
+</div>

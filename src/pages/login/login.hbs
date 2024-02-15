@@ -15,6 +15,9 @@
       name='password'
       validate=validate.password
     }}}
+    <div class="form-error">
+      {{{ErrorLine error_message=error_message ref='errorLine'}}}
+    </div>
     {{{Button label='Sign in' classes='button button__green' onClick=onLogin}}}
   {{/AuthForm}}
 </div>

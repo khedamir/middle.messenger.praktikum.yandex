@@ -4,7 +4,9 @@ import { Input } from '../input';
 
 interface ChatInputFieldProps extends IProps {
   value: string;
-  onBlur: () => boolean;
+  name: string;
+  placeholder: string;
+  onBlur: () => void;
   onChange: (e: Event) => void;
 }
 
@@ -17,8 +19,14 @@ export class ChatInputField extends Block<
   constructor(props: ChatInputFieldProps) {
     super({
       ...props,
-      onBlur: () => this.validate(),
-      onChange: (e) => this.setValue(e),
+      onBlur: () => {
+        console.log('blur');
+        this.validate();
+      },
+      onChange: (e) => {
+        console.log('onChange');
+        this.setValue(e);
+      },
       value: '',
     });
   }
@@ -33,6 +41,10 @@ export class ChatInputField extends Block<
   public setValue(e: Event) {
     const target = e.target as HTMLInputElement;
     this.props.value = target.value;
+  }
+
+  public clearValue() {
+    this.props.value = '';
   }
 
   private validate(): boolean {

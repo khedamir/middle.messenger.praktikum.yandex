@@ -1,0 +1,18 @@
+<div class='chat-header__settings'>
+  {{{ChatSettingButton onClick=onClick}}}
+  <div class='settings-modal {{#if active}}is--active{{/if}}'>
+    <div class='settings-list'>
+      {{{Button
+        classes='chats-header__button'
+        label='Chat users'
+        onClick=openChatUsers
+      }}}
+      {{{Button
+        classes='chats-header__button'
+        label='Delete chat'
+        onClick=deleteChat
+      }}}
+    </div>
+  </div>
+  {{{Modal title='Chat users' ref='modal' chatUsers=true}}}
+</div>

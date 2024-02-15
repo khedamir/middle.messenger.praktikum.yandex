@@ -3,20 +3,39 @@ import Block from '../../core/Block';
 import NodeElement from './user_data.hbs?raw';
 import * as validators from '../../utils/validators';
 import router from '../../core/navigate';
+import { logout } from '../../services/auth';
+import { connect } from '../../utils/connect';
+import { UpdateUser, UserDTO } from '../../api/type';
+import { updateAvatar, updateUser } from '../../services/user';
 
-export class UserData extends Block<
-  object,
-  {
-    first_name: InputField;
-    second_name: InputField;
-    phone: InputField;
-    email: InputField;
-    login: InputField;
-    display_name: InputField;
-  }
-> {
-  constructor() {
+interface FileInputChangeEvent extends Event {
+  target: HTMLInputElement & {
+    files: FileList;
+  };
+}
+
+type Refs = {
+  first_name: InputField;
+  second_name: InputField;
+  phone: InputField;
+  email: InputField;
+  login: InputField;
+  display_name: InputField;
+};
+
+interface Props {
+  user: UserDTO;
+  validate: object;
+  onSave: (event: MouseEvent) => void;
+  updateAvatar: (event: FileInputChangeEvent) => void;
+  logout: () => void;
+  toPasswordChange: () => void;
+}
+
+class UserData extends Block<Props, Refs> {
+  constructor(props: Props) {
     super({
+      ...props,
       validate: {
         first_name: validators.name,
         second_name: validators.name,
@@ -27,26 +46,25 @@ export class UserData extends Block<
       },
       onSave: (event: MouseEvent) => {
         event.preventDefault();
-        const first_name = this.refs.first_name.getValue();
-        const second_name = this.refs.second_name.getValue();
-        const phone = this.refs.phone.getValue();
-        const email = this.refs.email.getValue();
-        const login = this.refs.login.getValue();
-        const display_name = this.refs.display_name.getValue();
-        if (
-          !first_name ||
-          !second_name ||
-          !phone ||
-          !login ||
-          !email ||
-          !display_name
-        ) {
-          return;
-        }
-        console.log(first_name, second_name, phone, login, email, display_name);
+        const userData: UpdateUser = {
+          first_name: this.refs.first_name.getValue()!,
+          second_name: this.refs.second_name.getValue()!,
+          phone: this.refs.phone.getValue()!,
+          email: this.refs.email.getValue()!,
+          login: this.refs.login.getValue()!,
+          display_name: this.refs.display_name.getValue()!,
+        };
+
+        updateUser(userData);
+      },
+      updateAvatar: (event: FileInputChangeEvent) => {
+        const file = event.target?.files[0];
+        updateAvatar(file).then((result) => {
+          window.store.set({ user: result });
+        });
       },
       logout: () => {
-        router.go('/');
+        logout();
       },
       toPasswordChange: () => {
         router.go('/change-password');
@@ -57,3 +75,5 @@ export class UserData extends Block<
     return NodeElement;
   }
 }
+
+export default connect(({ user }) => ({ user }))(UserData);

@@ -123,7 +123,7 @@ class Block<
 
   componentWillUnmount() {}
 
-  setProps = (nextProps: Partial<Props>) => {
+  setProps = (nextProps: Partial<any>) => {
     if (!nextProps) {
       return;
     }

@@ -1,9 +1,18 @@
-<div class="search">
-  <label class="search__container">
-    <input class="search__element" placeholder="" value="{{value}}" name="search" />
-    <div class="search__label">
-      <img src="./svg/search-icon.svg" alt="search" />
-      <span>Search</span>
+<div class='search'>
+  <label class='search__container'>
+    {{{Input
+      name='search'
+      type='text'
+      value=value
+      ref='search'
+      placeholder=''
+      classes='search__element'
+      onBlur=onBlur
+      onChange=onChange
+    }}}
+    <div class='search__label'>
+      <img src='./svg/search-icon.svg' alt='search' />
+      <span>Chat search</span>
     </div>
   </label>
 </div>

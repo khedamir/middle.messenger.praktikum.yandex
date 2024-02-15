@@ -1,8 +1,10 @@
-import { InputField } from '../../components';
+import { ErrorLine, InputField } from '../../components';
 import Block from '../../core/Block';
 import NodeElement from './register.hbs?raw';
 import * as validators from '../../utils/validators';
 import router from '../../core/navigate';
+import { CreateUser } from '../../api/type';
+import { signup } from '../../services/auth';
 
 type Refs = {
   email: InputField;
@@ -11,6 +13,7 @@ type Refs = {
   second_name: InputField;
   phone: InputField;
   password: InputField;
+  errorLine: ErrorLine;
 };
 
 export class RegisterPage extends Block<object, Refs> {
@@ -26,24 +29,19 @@ export class RegisterPage extends Block<object, Refs> {
       },
       onRegister: (event: MouseEvent) => {
         event.preventDefault();
-        const email = this.refs.email.getValue();
-        const login = this.refs.login.getValue();
-        const first_name = this.refs.first_name.getValue();
-        const second_name = this.refs.second_name.getValue();
-        const phone = this.refs.phone.getValue();
-        const password = this.refs.password.getValue();
-        if (
-          !login ||
-          !password ||
-          !email ||
-          !first_name ||
-          !second_name ||
-          !phone
-        ) {
-          return;
-        }
-        console.log(login, password, email, first_name, second_name, phone);
-        router.go('/');
+        const newUser: CreateUser = {
+          login: this.refs.login.getValue()!,
+          first_name: this.refs.first_name.getValue()!,
+          second_name: this.refs.second_name.getValue()!,
+          email: this.refs.email.getValue()!,
+          phone: this.refs.phone.getValue()!,
+          password: this.refs.password.getValue()!,
+        };
+
+        signup(newUser).catch((error) => {
+          this.refs.errorLine.setProps({ error_message: error });
+          console.log('error', error);
+        });
       },
       toLogin: () => {
         router.go('/');

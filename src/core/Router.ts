@@ -41,7 +41,6 @@ class Router {
   }
 
   go(pathname: string) {
-    console.log(pathname);
     this.history.pushState({}, '', pathname);
     this._onPopState(pathname);
   }
@@ -56,7 +55,6 @@ class Router {
 
   private _onPopState(pathname: string) {
     const route = this.getRoute(pathname);
-    console.log(pathname, route);
 
     if (this._currentRoute) {
       this._currentRoute.leave();

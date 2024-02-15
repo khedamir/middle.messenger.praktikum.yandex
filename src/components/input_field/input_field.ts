@@ -24,8 +24,8 @@ export class InputField extends Block<
       ...props,
       onBlur: () => this.validate(),
       onChange: (e) => this.setValue(e),
-      value: '',
       error: '',
+      value: props.value ? props.value : '',
     });
   }
 
@@ -39,6 +39,10 @@ export class InputField extends Block<
   public setValue(e: Event) {
     const target = e.target as HTMLInputElement;
     this.props.value = target.value;
+  }
+
+  public clearValue() {
+    this.props.value = '';
   }
 
   private validate(): boolean {

@@ -1,7 +1,6 @@
 import Block, { RefType } from './Block';
 
 function render(query: string, block: Block<object, RefType>): HTMLElement {
-  console.log(query, block);
   const root = document.querySelector(query) as HTMLElement;
   root.replaceChildren(block.getContent()!);
   return root;

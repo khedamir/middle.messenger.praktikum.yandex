@@ -24,20 +24,54 @@
   }
 
   &__settings {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    position: relative;
+    .settings {
+      &-button {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
 
-    &:hover {
-      background-color: rgba($color: #fff, $alpha: 80%);
-    }
+        &:hover {
+          background-color: rgba($color: #fff, $alpha: 80%);
+        }
 
-    &.is-active {
-      background-color: rgba($color: #fff, $alpha: 80%);
+        &.is-active {
+          background-color: rgba($color: #fff, $alpha: 80%);
+        }
+      }
+
+      &-modal {
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        border-radius: 15px;
+        width: 150px;
+        z-index: 100;
+        padding: 4px 0;
+        box-shadow: 0 0 6px 0 rgb(142, 142, 142);
+        display: none;
+
+        .settings-list {
+          padding: 0;
+          margin: 0;
+          font-size: 12px;
+          display: flex;
+          flex-direction: column;
+
+          button {
+            padding: 6px 12px;
+            text-align: start;
+          }
+        }
+
+        &.is--active {
+          display: block;
+        }
+      }
     }
   }
 }

@@ -2,6 +2,7 @@ import { InputField } from '..';
 import Block from '../../core/Block';
 import NodeElement from './password_change.hbs?raw';
 import * as validators from '../../utils/validators';
+import { updatePassword } from '../../services/user';
 
 export class PasswordChange extends Block<
   object,
@@ -23,7 +24,11 @@ export class PasswordChange extends Block<
         if (!oldPassword || !newPassword) {
           return;
         }
-        console.log(oldPassword, newPassword);
+
+        updatePassword({ oldPassword, newPassword }).then(() => {
+          this.refs.oldPassword.clearValue();
+          this.refs.newPassword.clearValue();
+        });
       },
     });
   }

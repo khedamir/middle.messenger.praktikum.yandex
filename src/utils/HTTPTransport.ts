@@ -1,99 +1,111 @@
+import constants from '../constants';
+
 type Options = {
-  method: METHODS;
-  headers?: object;
+  method: METHOD;
   data?: unknown;
-  timeout?: number;
 };
 
-type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
+type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-enum METHODS {
+enum METHOD {
   GET = 'GET',
-  PUT = 'PUT',
   POST = 'POST',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
   DELETE = 'DELETE',
 }
 
-function queryStringify(data: object = {}) {
-  if (typeof data !== 'object') {
-    throw new Error('Data must be object');
+export class HTTPTransport {
+  private apiUrl: string = '';
+  constructor(apiPath: string) {
+    this.apiUrl = `${constants.HOST}${apiPath}`;
   }
 
-  const keys: string[] = Object.keys(data);
-  return keys.reduce((result, key, index) => {
-    return `${result}${key}=${data[key as keyof typeof data]}${
-      index < keys.length - 1 ? '&' : ''
-    }`;
-  }, '?');
-}
-
-export class HTTPTransportProfi {
-  get: HTTPMethod = (url, options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.GET },
-      options?.timeout,
-    );
-  };
-
-  post: HTTPMethod = (url, options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.POST },
-      options?.timeout,
-    );
-  };
-
-  put: HTTPMethod = (url, options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.PUT },
-      options?.timeout,
-    );
-  };
-
-  delete: HTTPMethod = (url, options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.DELETE },
-      options?.timeout,
-    );
-  };
-
-  request = (url: string, options: Options, timeout = 5000) => {
-    const { headers = {}, method, data } = options;
-
-    return new Promise(function (resolve, reject) {
-      if (!method) {
-        reject('No method');
-        return;
-      }
-
-      const xhr = new XMLHttpRequest();
-      const isGet = method === METHODS.GET;
-
-      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
-
-      Object.keys(headers).forEach((key) => {
-        xhr.setRequestHeader(key, headers[key as keyof typeof headers]);
-      });
-
-      xhr.onload = function () {
-        resolve(xhr);
-      };
-
-      xhr.onabort = reject;
-      xhr.onerror = reject;
-
-      xhr.timeout = timeout;
-      xhr.ontimeout = reject;
-
-      if (isGet || !data) {
-        xhr.send();
-      } else {
-        const json = JSON.stringify(data);
-        xhr.send(json);
-      }
+  get<TResponse>(
+    url: string,
+    options: OptionsWithoutMethod = {},
+  ): Promise<TResponse> {
+    return this.request<TResponse>(`${this.apiUrl}${url}`, {
+      ...options,
+      method: METHOD.GET,
     });
-  };
+  }
+
+  post<TResponse>(
+    url: string,
+    options: OptionsWithoutMethod = {},
+  ): Promise<TResponse> {
+    return this.request<TResponse>(`${this.apiUrl}${url}`, {
+      ...options,
+      method: METHOD.POST,
+    });
+  }
+
+  delete<TResponse>(
+    url: string,
+    options: OptionsWithoutMethod = {},
+  ): Promise<TResponse> {
+    return this.request<TResponse>(`${this.apiUrl}${url}`, {
+      ...options,
+      method: METHOD.DELETE,
+    });
+  }
+
+  put<TResponse>(
+    url: string,
+    options: OptionsWithoutMethod = {},
+  ): Promise<TResponse> {
+    return this.request<TResponse>(`${this.apiUrl}${url}`, {
+      ...options,
+      method: METHOD.PUT,
+    });
+  }
+
+  patch<TResponse>(
+    url: string,
+    options: OptionsWithoutMethod = {},
+  ): Promise<TResponse> {
+    return this.request<TResponse>(`${this.apiUrl}${url}`, {
+      ...options,
+      method: METHOD.PATCH,
+    });
+  }
+
+  async request<TResponse>(
+    url: string,
+    options: Options = { method: METHOD.GET },
+  ): Promise<TResponse> {
+    const { method, data } = options;
+
+    const option: RequestInit = {
+      method,
+      credentials: 'include',
+      mode: 'cors',
+      // body: data ? JSON.stringify(data) : null,
+    };
+
+    if (!(data instanceof FormData)) {
+      option.body = data ? JSON.stringify(data) : null;
+      option.headers = { 'Content-Type': 'application/json' };
+    } else {
+      option.body = data;
+    }
+
+    const response = await fetch(url, option);
+
+    // const response = await fetch(url, {
+    //   method,
+    //   credentials: 'include',
+    //   mode: 'cors',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: data ? JSON.stringify(data) : null,
+    // });
+
+    const isJson = response.headers
+      .get('content-type')
+      ?.includes('application/json');
+    const resultData = (await isJson) ? response.json() : null;
+
+    return resultData as unknown as TResponse;
+  }
 }

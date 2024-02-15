@@ -1,54 +1,57 @@
-import Block, { RefType } from '../../core/Block';
+import { Modal } from '..';
+import { ChatDTO } from '../../api/type';
+import Block from '../../core/Block';
 import router from '../../core/navigate';
+import { connect } from '../../utils/connect';
 import NodeElement from './chats.hbs?raw';
 
-export class Chats extends Block<object, RefType> {
-  constructor() {
+interface Props {
+  chats: ChatDTO[];
+  searchChats: ChatDTO[];
+  openDialogChat: ChatDTO;
+  toProfile: () => void;
+  createChat: () => void;
+  search: (v: string) => void;
+  isSearched: boolean;
+}
+
+type Refs = {
+  modal: Modal;
+};
+
+class Chats extends Block<Props, Refs> {
+  constructor(props: Props) {
     super({
-      chats: [
-        { name: 'Седа', message: 'Изображение', author: false, time: '11:59' },
-        {
-          name: 'Мата',
-          message: 'Друзья',
-          author: false,
-          active: true,
-          time: '11:59',
-        },
-        { name: 'Фариза', message: 'Круто!', author: true, time: 'Пн' },
-        { name: 'Мохьмад', message: 'Изображение', author: false, time: 'Пн' },
-        { name: 'Амина', message: 'Друзья', author: false, time: 'Ср' },
-        { name: 'Билал', message: 'Круто!', author: true, time: 'Ср' },
-        { name: 'Анзор', message: 'Изображение', author: false, time: 'Ср' },
-        { name: 'Айшат', message: 'Друзья', author: false, time: 'Ср' },
-        { name: 'Халид', message: 'Круто!', author: true, time: 'Ср' },
-        {
-          name: 'Адам',
-          message: 'Изображение',
-          author: false,
-          time: '01.01.2024',
-        },
-        { name: 'Имран', message: 'Друзья', author: false, time: '01.01.2024' },
-        { name: 'Мадина', message: 'Круто!', author: true, time: '01.01.2024' },
-        {
-          name: 'Хава',
-          message: 'Изображение',
-          author: false,
-          time: '01.01.2024',
-        },
-        { name: 'Билал', message: 'Друзья', author: false, time: '01.01.2024' },
-        {
-          name: 'Зелимхан',
-          message: 'Круто!',
-          author: true,
-          time: '01.01.2024',
-        },
-      ],
+      ...props,
+      searchChats: [],
+      isSearched: false,
       toProfile: () => {
         router.go('/settings');
       },
+      createChat: () => {
+        this.refs.modal.openModal();
+      },
+      search: (v: string) => {
+        this.searchInChats(v);
+      },
     });
+  }
+
+  public searchInChats(value: string) {
+    if (!value) {
+      this.props.searchChats = [];
+      this.props.isSearched = false;
+      return;
+    }
+    const result = this.props.chats.filter((item) =>
+      item.title.includes(value),
+    );
+    this.props.searchChats = result;
+    this.props.isSearched = result.length > 0;
   }
   protected render(): string {
     return NodeElement;
   }
 }
+
+export default connect(({ chats }) => ({ chats }))(Chats);
