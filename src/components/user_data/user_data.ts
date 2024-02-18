@@ -1,11 +1,11 @@
-import { ErrorLine, InputField } from '..';
+import { ErrorLine } from '..';
 import Block from '../../core/Block';
 import NodeElement from './user_data.hbs?raw';
 import router from '../../core/navigate';
 import { logout } from '../../services/auth';
 import { connect } from '../../utils/connect';
-import { UpdateUser, UserDTO } from '../../api/type';
-import { updateAvatar, updateUser } from '../../services/user';
+import { UserDTO } from '../../api/type';
+import { updateAvatar } from '../../services/user';
 
 interface FileInputChangeEvent extends Event {
   target: HTMLInputElement & {
