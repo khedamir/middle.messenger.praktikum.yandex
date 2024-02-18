@@ -27,13 +27,9 @@ class ChatItem extends Block<Props, RefType> {
       setChat: () => {
         window.store.set({ openDialogChat: props.chat });
         window.store.set({ messages: [] });
-        getChatUsers(props.chat.id)
-          .then((result) => {
-            window.store.set({ openDialogUsers: result });
-          })
-          .catch((error) => {
-            alert(`Error :( \n ${error}`);
-          });
+        getChatUsers(props.chat.id).catch((error) => {
+          alert(`Error :( \n ${error}`);
+        });
         createWS(props.chat.id);
       },
     });

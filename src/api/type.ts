@@ -69,3 +69,7 @@ export type ChangeChatUsers = {
   users: number[];
   chatId: number;
 };
+
+export type CreateToken = {
+  token: string;
+};

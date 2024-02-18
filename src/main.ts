@@ -25,7 +25,7 @@ declare global {
   type Nullable<T> = T | null;
 }
 
-const initState: AppState = {
+export const initState: AppState = {
   error: null,
   user: null,
   isOpenDialogChat: false,
@@ -35,7 +35,6 @@ const initState: AppState = {
   messages: [],
 };
 window.store = new Store<AppState>(initState);
-console.log(window.store.getState());
 
 Handlebars.registerPartial('AuthForm', Components.AuthForm);
 Handlebars.registerPartial('DataLayout', Components.DataLayout);

@@ -1,24 +1,28 @@
 import { HTTPTransport } from './../utils/HTTPTransport';
-import { APIError, UpdatePassword, UpdateUser, UserDTO } from './type';
+import { UpdatePassword, UpdateUser } from './type';
 
 const userApi = new HTTPTransport('/user');
 
 export default class UserApi {
-  async profile(data: UpdateUser): Promise<UserDTO | APIError> {
-    return userApi.put<UserDTO | APIError>('/profile', { data });
+  async profile(data: UpdateUser) {
+    const result = await userApi.put('/profile', { data });
+    return result.response;
   }
 
-  async avatar(file: File): Promise<UserDTO | APIError> {
+  async avatar(file: File) {
     const data = new FormData();
     data.append('avatar', file);
-    return userApi.put<UserDTO | APIError>('/profile/avatar', { data });
+    const result = await userApi.put('/profile/avatar', { data });
+    return result.response;
   }
 
-  async password(data: UpdatePassword): Promise<void | APIError> {
-    return userApi.put<void | APIError>('/password', { data });
+  async password(data: UpdatePassword) {
+    const result = await userApi.put('/password', { data });
+    return result.response;
   }
 
-  async search(data: { login: string }): Promise<UserDTO[] | APIError> {
-    return userApi.post<UserDTO[] | APIError>('/search', { data });
+  async search(data: { login: string }) {
+    const result = await userApi.post('/search', { data });
+    return result.response;
   }
 }

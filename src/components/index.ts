@@ -1,6 +1,7 @@
 export { AuthForm } from './auth_form';
 export { Modal } from './modal';
 export { Button } from './button';
+export { ProfileBackButton } from './profile_back_button';
 export { Input } from './input';
 export { ErrorLine } from './error_line';
 export { InputField } from './input_field';
@@ -22,5 +23,6 @@ export { ChatInputField } from './chat_input_field';
 export { default as Messages } from './messages';
 export { Message } from './message';
 export { default as UserData } from './user_data';
+export { UserDataForm } from './user_data_form';
 export { DataLayout } from './data_layout';
 export { PasswordChange } from './password_change';

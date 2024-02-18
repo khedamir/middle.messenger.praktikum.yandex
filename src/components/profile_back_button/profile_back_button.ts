@@ -1,15 +1,12 @@
 import Block, { IProps, RefType } from '../../core/Block';
-import NodeElement from './button.hbs?raw';
+import NodeElement from './profile_back_button.hbs?raw';
 
-interface ButtonProps extends IProps {
-  classes: string;
-  label: string;
-  type?: string;
+interface ProfileBackButtonProps extends IProps {
   onClick?: (e: Event) => void;
 }
 
-export class Button extends Block<ButtonProps, RefType> {
-  constructor(props: ButtonProps) {
+export class ProfileBackButton extends Block<ProfileBackButtonProps, RefType> {
+  constructor(props: ProfileBackButtonProps) {
     super(props);
   }
 

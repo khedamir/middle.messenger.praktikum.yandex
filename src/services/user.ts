@@ -5,43 +5,41 @@ import { apiHasError } from '../utils/apiHasError';
 const userApi = new UserApi();
 
 const updateUser = async (data: UpdateUser) => {
-  const responseProfile = await userApi.profile(data);
-  if (apiHasError(responseProfile)) {
-    throw Error(responseProfile.reason);
+  const response = await userApi.profile(data);
+  const responseJson = JSON.parse(response);
+  if (apiHasError(responseJson)) {
+    throw Error(responseJson.reason);
   }
-
-  console.log('responseProfile', responseProfile);
-  return responseProfile as UserDTO;
+  window.store.set({ user: responseJson as UserDTO });
 };
 
 const updateAvatar = async (data: File) => {
-  const responseProfile = await userApi.avatar(data);
-  if (apiHasError(responseProfile)) {
-    throw Error(responseProfile.reason);
+  const response = await userApi.avatar(data);
+  const responseJson = JSON.parse(response);
+  if (apiHasError(responseJson)) {
+    throw Error(responseJson.reason);
   }
-
-  console.log('responseProfile', responseProfile);
-  return responseProfile as UserDTO;
+  window.store.set({ user: responseJson as UserDTO });
 };
 
 const updatePassword = async (data: UpdatePassword) => {
-  const responsePassword = await userApi.password(data);
-  if (apiHasError(responsePassword)) {
-    throw Error(responsePassword.reason);
+  const response = await userApi.password(data);
+  if (response !== 'OK') {
+    const responseJson = JSON.parse(response);
+    if (apiHasError(responseJson)) {
+      throw Error(responseJson.reason);
+    }
   }
-
-  console.log('responsePassword', responsePassword);
-  return responsePassword;
+  return response;
 };
 
 const searchUsers = async (data: { login: string }) => {
-  const responseProfile = await userApi.search(data);
-  if (apiHasError(responseProfile)) {
-    throw Error(responseProfile.reason);
+  const response = await userApi.search(data);
+  const responseJson = JSON.parse(response);
+  if (apiHasError(responseJson)) {
+    throw Error(responseJson.reason);
   }
-
-  console.log('responseProfile', responseProfile);
-  return responseProfile as UserDTO[];
+  return responseJson as UserDTO[];
 };
 
 export { updateUser, updatePassword, updateAvatar, searchUsers };

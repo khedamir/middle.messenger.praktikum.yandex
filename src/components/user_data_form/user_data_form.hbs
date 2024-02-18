@@ -1,0 +1,59 @@
+<form>
+  {{{InputField
+    ref='first_name'
+    value=user.first_name
+    type='text'
+    label='Name'
+    name='first_name'
+    validate=validate.first_name
+  }}}
+  {{{InputField
+    ref='second_name'
+    value=user.second_name
+    type='text'
+    label='Surname'
+    name='second_name'
+    validate=validate.second_name
+  }}}
+  {{{InputField
+    ref='phone'
+    value=user.phone
+    type='text'
+    label='Phone'
+    name='phone'
+    validate=validate.phone
+  }}}
+  {{{InputField
+    ref='email'
+    value=user.email
+    type='text'
+    label='Email'
+    name='email'
+    validate=validate.email
+  }}}
+  {{{InputField
+    ref='login'
+    value=user.login
+    type='text'
+    label='Login'
+    name='login'
+    validate=validate.login
+  }}}
+  {{{InputField
+    ref='display_name'
+    value=user.display_name
+    type='text'
+    label='Display Name'
+    name='display_name'
+    validate=validate.display_name
+  }}}
+  <div class='form-error'>
+    {{{ErrorLine error_message=error_message ref='errorLine'}}}
+  </div>
+  {{{Button
+    type='submit'
+    label='Save'
+    classes='button button__green'
+    onClick=onSubmit
+  }}}
+</form>

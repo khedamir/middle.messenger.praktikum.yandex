@@ -1,17 +1,23 @@
 import constants from '../constants';
+import queryStringify from './queryStringify';
 
-type Options = {
-  method: METHOD;
+export type Options = {
+  method: METHODS;
+  headers?: { [key: string]: string };
   data?: unknown;
+  timeout?: number;
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
+type HTTPMethod = (
+  url: string,
+  options?: OptionsWithoutMethod,
+) => Promise<XMLHttpRequest>;
 
-enum METHOD {
+export enum METHODS {
   GET = 'GET',
-  POST = 'POST',
   PUT = 'PUT',
-  PATCH = 'PATCH',
+  POST = 'POST',
   DELETE = 'DELETE',
 }
 
@@ -21,82 +27,112 @@ export class HTTPTransport {
     this.apiUrl = `${constants.HOST}${apiPath}`;
   }
 
-  get<TResponse>(
-    url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${url}`, {
+  get: HTTPMethod = (url, options) => {
+    return this.request(url, {
       ...options,
-      method: METHOD.GET,
+      method: METHODS.GET,
     });
-  }
+  };
 
-  post<TResponse>(
-    url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${url}`, {
+  post: HTTPMethod = (url, options) => {
+    return this.request(url, {
       ...options,
-      method: METHOD.POST,
+      method: METHODS.POST,
     });
-  }
+  };
 
-  delete<TResponse>(
-    url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${url}`, {
+  put: HTTPMethod = (url, options) => {
+    return this.request(url, {
       ...options,
-      method: METHOD.DELETE,
+      method: METHODS.PUT,
     });
-  }
+  };
 
-  put<TResponse>(
-    url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${url}`, {
+  delete: HTTPMethod = (url, options) => {
+    return this.request(url, {
       ...options,
-      method: METHOD.PUT,
+      method: METHODS.DELETE,
     });
-  }
+  };
 
-  patch<TResponse>(
-    url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${url}`, {
-      ...options,
-      method: METHOD.PATCH,
+  request = (url: string, options: Options): Promise<XMLHttpRequest> => {
+    const { headers = {}, method, data, timeout = 5000 } = options;
+
+    return new Promise((resolve, reject) => {
+      if (!method) {
+        reject('No method');
+        return;
+      }
+
+      const xhr = new XMLHttpRequest();
+      const isGet = method === METHODS.GET;
+
+      xhr.open(
+        method,
+        isGet && !!data
+          ? `${this.apiUrl}${url}${queryStringify(data)}`
+          : `${this.apiUrl}${url}`,
+      );
+
+      !headers['Content-Type'] &&
+        !(data instanceof FormData) &&
+        (headers['content-type'] = 'application/json');
+
+      for (const key in headers) {
+        if (Object.prototype.hasOwnProperty.call(headers, key)) {
+          xhr.setRequestHeader(key, headers[key]);
+        }
+      }
+
+      xhr.timeout = timeout;
+      xhr.withCredentials = true;
+
+      xhr.onload = function () {
+        resolve(xhr);
+      };
+
+      xhr.onabort = reject;
+      xhr.onerror = reject;
+      xhr.ontimeout = reject;
+
+      if (isGet || !data) {
+        xhr.send();
+      } else {
+        const body = data instanceof FormData ? data : JSON.stringify(data);
+        xhr.send(body);
+      }
     });
-  }
-
-  async request<TResponse>(
-    url: string,
-    options: Options = { method: METHOD.GET },
-  ): Promise<TResponse> {
-    const { method, data } = options;
-
-    const option: RequestInit = {
-      method,
-      credentials: 'include',
-      mode: 'cors',
-    };
-
-    if (!(data instanceof FormData)) {
-      option.body = data ? JSON.stringify(data) : null;
-      option.headers = { 'Content-Type': 'application/json' };
-    } else {
-      option.body = data;
-    }
-
-    const response = await fetch(url, option);
-
-    const isJson = response.headers
-      .get('content-type')
-      ?.includes('application/json');
-    const resultData = (await isJson) ? response.json() : null;
-
-    return resultData as unknown as TResponse;
-  }
+  };
 }
+
+// export function fetchWithRetry(
+//   url: string,
+//   options: Options,
+//   http: HTTPTransport,
+//   retries = 2,
+// ) {
+//   return new Promise((resolve, reject) => {
+//     let attempts = 0;
+
+//     const errorHandler = (error: unknown) => {
+//       attempts++;
+
+//       if (attempts >= retries) {
+//         reject(error);
+//       } else {
+//         makeRequest();
+//       }
+//     };
+
+//     const makeRequest = async () => {
+//       try {
+//         const data = await http.request(url, options);
+//         return data.response;
+//       } catch (e) {
+//         resolve(errorHandler);
+//       }
+//     };
+
+//     return makeRequest();
+//   });
+// }

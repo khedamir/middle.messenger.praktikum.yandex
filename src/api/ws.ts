@@ -29,12 +29,16 @@ const createWebSocket = async (chatId: number, user: UserDTO) => {
 
   socket.addEventListener('message', (event) => {
     console.log('Получены данные', event.data);
-    const data = JSON.parse(event.data);
-    const messages = window.store.getState().messages;
-    if (Array.isArray(data) && data[0]?.type === 'message') {
-      window.store.set({ messages: [...messages, ...data.reverse()] });
-    } else if (data.type === 'message') {
-      window.store.set({ messages: [...messages, data] });
+    try {
+      const data = JSON.parse(event.data);
+      const messages = window.store.getState().messages;
+      if (Array.isArray(data) && data[0]?.type === 'message') {
+        window.store.set({ messages: [...messages, ...data.reverse()] });
+      } else if (data.type === 'message') {
+        window.store.set({ messages: [...messages, data] });
+      }
+    } catch {
+      console.log('Invalid data');
     }
   });
 
