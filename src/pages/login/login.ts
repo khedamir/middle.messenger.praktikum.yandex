@@ -1,4 +1,4 @@
-import Block from '../../core/Block';
+import Block, { IProps } from '../../core/Block';
 import router from '../../core/navigate';
 import LoginComponent from './login.hbs?raw';
 import * as validators from '../../utils/validators';
@@ -11,14 +11,18 @@ type Refs = {
   errorLine: ErrorLine;
 };
 
-export class LoginPage extends Block<object, Refs> {
+interface Props extends IProps {
+  onLogin: (e: Event) => void;
+}
+
+export class LoginPage extends Block<Props, Refs> {
   constructor() {
     super({
       validate: {
         login: validators.login,
         password: validators.password,
       },
-      onLogin: (event: MouseEvent) => {
+      onLogin: (event: Event) => {
         event.preventDefault();
         const login = this.refs.login.getValue();
         const password = this.refs.password.getValue();
@@ -38,6 +42,11 @@ export class LoginPage extends Block<object, Refs> {
       },
     });
   }
+
+  // componentDidMount(): void {
+  //   const form = document.querySelector('form');
+  //   form?.addEventListener('submit', () => this.props.onLogin);
+  // }
 
   protected render() {
     return LoginComponent;

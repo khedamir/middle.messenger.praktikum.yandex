@@ -6,43 +6,39 @@ interface Props extends IProps {
   value: string;
   name: string;
   placeholder: string;
-  onBlur: () => void;
   onChange: (e: Event) => void;
   search: (v: string) => void;
 }
 
 type Refs = {
-  input: Input;
+  search: Input;
 };
 
 export class Search extends Block<Props, Refs> {
   constructor(props: Props) {
     super({
       ...props,
-      onBlur: () => {
-        console.log('blur');
-        this.Search(this.getValue());
-      },
-      onChange: (e) => {
+      onChange: (e: Event) => {
+        e.preventDefault();
         console.log('onChange');
-        this.setValue(e);
+        this.Search(this.getValue());
       },
       value: '',
     });
   }
 
+  protected init(): void {
+    this.props.events = {
+      onsubmit: this.props.onChange,
+    };
+  }
+
   public Search(v: string) {
-    console.log(v, this.props);
     this.props.search(v);
   }
 
   public getValue() {
-    return this.props.value;
-  }
-
-  public setValue(e: Event) {
-    const target = e.target as HTMLInputElement;
-    this.props.value = target.value;
+    return this.refs.search.element.value;
   }
 
   public clearValue() {

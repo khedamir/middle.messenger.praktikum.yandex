@@ -8,7 +8,6 @@ interface InputFieldProps extends IProps {
   error: string;
   name: string;
   label: string;
-  onBlur: () => boolean;
   onChange: (e: Event) => void;
 }
 
@@ -22,8 +21,9 @@ export class InputField extends Block<
   constructor(props: InputFieldProps) {
     super({
       ...props,
-      onBlur: () => this.validate(),
-      onChange: (e) => this.setValue(e),
+      onChange: () => {
+        this.validate();
+      },
       error: '',
       value: props.value ? props.value : '',
     });
@@ -33,16 +33,11 @@ export class InputField extends Block<
     if (!this.validate()) {
       return null;
     }
-    return this.props.value;
-  }
-
-  public setValue(e: Event) {
-    const target = e.target as HTMLInputElement;
-    this.props.value = target.value;
+    return this.refs.input.element.value;
   }
 
   public clearValue() {
-    this.props.value = '';
+    this.refs.input.element.value = '';
   }
 
   private validate(): boolean {
@@ -50,11 +45,11 @@ export class InputField extends Block<
 
     const error = this.props.validate?.(value);
     if (error) {
-      this.props.error = 'error';
+      this.refs.input.element.style.color = '#ce5a57';
       this.refs.errorLine.setProps({ error_message: error });
       return false;
     }
-    this.props.error = '';
+    this.refs.input.element.style.color = '#393939';
     this.refs.errorLine.setProps({ error_message: '' });
     return true;
   }

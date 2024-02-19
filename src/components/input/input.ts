@@ -8,7 +8,6 @@ export interface InputProps extends IProps {
   classes: string;
   id?: string;
   placeholder: string;
-  onBlur: (e: Event) => void;
   onChange: (e: Event) => void;
 }
 
@@ -17,7 +16,6 @@ export class Input extends Block<InputProps, RefType, HTMLInputElement> {
     super({
       ...props,
       events: {
-        blur: props.onBlur,
         change: props.onChange,
       },
     });

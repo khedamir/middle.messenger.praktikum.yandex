@@ -1,4 +1,4 @@
-<div class='search'>
+<form class='search'>
   <label class='search__container'>
     {{{Input
       name='search'
@@ -7,7 +7,6 @@
       ref='search'
       placeholder=''
       classes='search__element'
-      onBlur=onBlur
       onChange=onChange
     }}}
     <div class='search__label'>
@@ -15,4 +14,5 @@
       <span>Chat search</span>
     </div>
   </label>
-</div>
+  {{{Button onClick=onChange}}}
+</form>

@@ -1,6 +1,9 @@
 .search {
   padding: 10px;
 
+  button {
+    display: none;
+  }
   &__container {
     display: flex;
     flex-direction: column;
