@@ -104,35 +104,3 @@ export class HTTPTransport {
     });
   };
 }
-
-// export function fetchWithRetry(
-//   url: string,
-//   options: Options,
-//   http: HTTPTransport,
-//   retries = 2,
-// ) {
-//   return new Promise((resolve, reject) => {
-//     let attempts = 0;
-
-//     const errorHandler = (error: unknown) => {
-//       attempts++;
-
-//       if (attempts >= retries) {
-//         reject(error);
-//       } else {
-//         makeRequest();
-//       }
-//     };
-
-//     const makeRequest = async () => {
-//       try {
-//         const data = await http.request(url, options);
-//         return data.response;
-//       } catch (e) {
-//         resolve(errorHandler);
-//       }
-//     };
-
-//     return makeRequest();
-//   });
-// }
