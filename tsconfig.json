@@ -16,9 +16,7 @@
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "declaration": true,
+    "noFallthroughCasesInSwitch": true
   },
   "ts-node": {
     "esm": true,
