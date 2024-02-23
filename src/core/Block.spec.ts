@@ -32,8 +32,8 @@ describe('Block', () => {
     const text = 'Page Title';
     const pageComponent = new PageClass({ text });
 
-    const spanText =
-      pageComponent.element?.querySelector('#test-text')?.innerHTML;
+    const element = pageComponent.element as unknown as HTMLElement;
+    const spanText = element.querySelector('#test-text')?.innerHTML;
 
     expect(spanText).to.be.eq(text);
   });
@@ -42,8 +42,8 @@ describe('Block', () => {
     const pageComponent = new PageClass({ text: 'Page Title' });
 
     pageComponent.setProps({ text });
-    const spanText =
-      pageComponent.element?.querySelector('#test-text')?.innerHTML;
+    const element = pageComponent.element as unknown as HTMLElement;
+    const spanText = element.querySelector('#test-text')?.innerHTML;
 
     expect(spanText).to.be.eq(text);
   });
@@ -56,7 +56,8 @@ describe('Block', () => {
     });
 
     const event = new MouseEvent('click');
-    pageComponent.element?.dispatchEvent(event);
+    const element = pageComponent.element as unknown as HTMLElement;
+    element?.dispatchEvent(event);
 
     expect(handlerStub.calledOnce).to.be.true;
   });

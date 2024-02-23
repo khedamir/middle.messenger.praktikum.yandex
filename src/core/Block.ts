@@ -35,7 +35,7 @@ class Block<
   protected refs: Refs = {} as Refs;
   private children: Block<Props, Refs>[] = [];
   private eventBus: () => EventBus;
-  private _element: HTMLElement | null = null;
+  private _element: Element = null as Element;
 
   constructor(props: Props = {} as Props) {
     this.props = this._makePropsProxy(props);
@@ -143,7 +143,7 @@ class Block<
       this._element.replaceWith(newElement);
     }
 
-    this._element = newElement as HTMLElement;
+    this._element = newElement as Element;
 
     this._addEvents();
   }
