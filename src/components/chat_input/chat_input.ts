@@ -2,6 +2,7 @@ import Block from '../../core/Block';
 import NodeElement from './chat_input.hbs?raw';
 import * as validators from '../../utils/validators';
 import { ChatInputField } from '..';
+import { sendMessage } from '../../services/ws';
 
 export class ChatInput extends Block<
   object,
@@ -18,7 +19,8 @@ export class ChatInput extends Block<
         event.preventDefault();
         const message = this.refs.message.getValue();
         if (message) {
-          console.log('Текст сообщения:', message);
+          sendMessage(message);
+          this.refs.message.clearValue();
         }
       },
       value: '',

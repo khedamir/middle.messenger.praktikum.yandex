@@ -4,7 +4,7 @@ import NodeElement from './button.hbs?raw';
 interface ButtonProps extends IProps {
   classes: string;
   label: string;
-  page: string;
+  type?: string;
   onClick?: (e: Event) => void;
 }
 

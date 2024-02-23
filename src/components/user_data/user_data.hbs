@@ -1,8 +1,17 @@
 {{#> DataLayout}}
   <div class='user-data__img'>
-    <input id='user-image-input' type='file' name='avatar' />
-    {{#if image}}
-      <img src='user-image' alt='user-image' />
+    {{{Input
+      name='avatar'
+      type='file'
+      value=value
+      ref='file-input'
+      placeholder=''
+      classes=''
+      id='user-image-input'
+      onChange=updateAvatar
+    }}}
+    {{#if user.avatar}}
+      <img src={{getImgURL user.avatar}} class="user-image" alt='user-image' />
     {{else}}
       <div class='user-image__empty'>
         <img src='./svg/user-icon.svg' alt='user-empty-image' />
@@ -15,9 +24,10 @@
       /></label>
   </div>
   <div class='user-data__form'>
-    <form action=''>
+    <form>
       {{{InputField
         ref='first_name'
+        value=user.first_name
         type='text'
         label='Name'
         name='first_name'
@@ -25,6 +35,7 @@
       }}}
       {{{InputField
         ref='second_name'
+        value=user.second_name
         type='text'
         label='Surname'
         name='second_name'
@@ -32,6 +43,7 @@
       }}}
       {{{InputField
         ref='phone'
+        value=user.phone
         type='text'
         label='Phone'
         name='phone'
@@ -39,6 +51,7 @@
       }}}
       {{{InputField
         ref='email'
+        value=user.email
         type='text'
         label='Email'
         name='email'
@@ -46,6 +59,7 @@
       }}}
       {{{InputField
         ref='login'
+        value=user.login
         type='text'
         label='Login'
         name='login'
@@ -53,12 +67,21 @@
       }}}
       {{{InputField
         ref='display_name'
+        value=user.display_name
         type='text'
         label='Display Name'
         name='display_name'
         validate=validate.display_name
       }}}
-      {{{Button label='Save' classes='button button__green' onClick=onSave }}}
+      <div class='form-error'>
+        {{{ErrorLine error_message=error_message ref='errorLine'}}}
+      </div>
+      {{{Button
+        type='submit'
+        label='Save'
+        classes='button button__green'
+        onClick=onSubmit
+      }}}
     </form>
   </div>
   <div class='settings'>

@@ -1,0 +1,6 @@
+<div class='user-item'>
+  <p>{{user.login}}</p>
+  {{#if isNotAdded}}
+    {{{Button classes='chats-header__button' label='Add' onClick=addUser}}}
+  {{/if}}
+</div>

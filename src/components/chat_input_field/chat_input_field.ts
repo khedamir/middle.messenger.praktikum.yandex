@@ -2,41 +2,39 @@ import Block, { IProps } from '../../core/Block';
 import NodeElement from './chat_input_field.hbs?raw';
 import { Input } from '../input';
 
-interface ChatInputFieldProps extends IProps {
+interface Props extends IProps {
   value: string;
-  onBlur: () => boolean;
+  name: string;
+  placeholder: string;
   onChange: (e: Event) => void;
 }
 
 export class ChatInputField extends Block<
-  ChatInputFieldProps,
+  Props,
   {
-    input: Input;
+    message: Input;
   }
 > {
-  constructor(props: ChatInputFieldProps) {
+  constructor(props: Props) {
     super({
       ...props,
-      onBlur: () => this.validate(),
-      onChange: (e) => this.setValue(e),
+      onChange: () => {
+        this.validate();
+      },
       value: '',
     });
   }
 
   public getValue() {
-    if (!this.validate()) {
-      return null;
-    }
-    return this.props.value;
+    return this.refs.message.element.value;
   }
 
-  public setValue(e: Event) {
-    const target = e.target as HTMLInputElement;
-    this.props.value = target.value;
+  public clearValue() {
+    this.refs.message.element.value = '';
   }
 
   private validate(): boolean {
-    const value = this.props.value;
+    const value = this.refs.message.element.value;
 
     const error = this.props.validate?.(value);
     if (error) {

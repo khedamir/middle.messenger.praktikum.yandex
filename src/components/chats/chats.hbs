@@ -2,14 +2,28 @@
   <div class='chats-header'>
     {{{Button
       classes='chats-header__button'
+      label='New chat'
+      onClick=createChat
+    }}}
+    {{{Button
+      classes='chats-header__button'
       label='Profile'
       onClick=toProfile
     }}}
   </div>
-  {{{Search}}}
+  {{{Modal title='Create chat' ref='modal' createChat=true}}}
+  {{{Search search=search}}}
   <div class='chats-items'>
+    {{#if isSearched}}
+      <div class='search-result'>
+        <p>Search result:</p>
+        {{#each searchChats}}
+          {{{ChatItem chat=this active=active setChat=setChat}}}
+        {{/each}}
+      </div>
+    {{/if}}
     {{#each chats}}
-      {{{ChatItem name=this.name message=this.message time=this.time}}}
+      {{{ChatItem chat=this active=active setChat=setChat}}}
     {{/each}}
   </div>
 </div>

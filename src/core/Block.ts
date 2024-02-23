@@ -123,7 +123,7 @@ class Block<
 
   componentWillUnmount() {}
 
-  setProps = (nextProps: Partial<Props>) => {
+  setProps = (nextProps: Partial<unknown>) => {
     if (!nextProps) {
       return;
     }
@@ -137,7 +137,6 @@ class Block<
 
   private _render() {
     const fragment = this.compile(this.render(), this.props);
-
     const newElement = fragment.firstElementChild as HTMLElement;
 
     if (this._element) {

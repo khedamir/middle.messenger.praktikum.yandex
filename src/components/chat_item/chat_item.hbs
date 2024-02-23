@@ -1,8 +1,8 @@
-<div class="chat-item {{#if active}}chat-item__active{{/if}}">
+<div class="chat-item {{#if (chatIsActive chat.id)}}chat-item__active{{/if}}">
   {{{ UserIcon }}}
   <div class="chat-item__description">
-    <p class="chat-item__description--name">{{name}}</p>
-    <p class="chat-item__description--message">{{message}}</p>
+    <p class="chat-item__description--name">{{chat.title}}</p>
+    <p class="chat-item__description--message">{{chat.last_message.content}}</p>
   </div>
-  <span class="time">{{time}}</span>
+  <span class="time">{{chat.last_message.time}}</span>
 </div>

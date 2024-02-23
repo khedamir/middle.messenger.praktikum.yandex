@@ -1,4 +1,5 @@
-<div class='content-wrapper'>
+<div class="login">
+  <div class='content-wrapper'>
   {{#> AuthForm title='Sign in' label='Sign up' description='Don\'t have an account?' buttonClick=toRegister }}
     {{{InputField
       ref='login'
@@ -14,6 +15,10 @@
       name='password'
       validate=validate.password
     }}}
+    <div class="form-error">
+      {{{ErrorLine error_message=error_message ref='errorLine'}}}
+    </div>
     {{{Button label='Sign in' classes='button button__green' onClick=onLogin}}}
   {{/AuthForm}}
+</div>
 </div>

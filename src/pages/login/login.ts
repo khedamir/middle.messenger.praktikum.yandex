@@ -1,38 +1,52 @@
-import Block from '../../core/Block';
-import { navigate } from '../../core/navigate';
+import Block, { IProps } from '../../core/Block';
+import router from '../../core/navigate';
 import LoginComponent from './login.hbs?raw';
 import * as validators from '../../utils/validators';
-import { InputField } from '../../components';
+import { ErrorLine, InputField } from '../../components';
+import { signin } from '../../services/auth';
 
-export class LoginPage extends Block<
-  object,
-  {
-    login: InputField;
-    password: InputField;
-  }
-> {
+type Refs = {
+  login: InputField;
+  password: InputField;
+  errorLine: ErrorLine;
+};
+
+interface Props extends IProps {
+  onLogin: (e: Event) => void;
+}
+
+export class LoginPage extends Block<Props, Refs> {
   constructor() {
     super({
       validate: {
         login: validators.login,
         password: validators.password,
       },
-      onLogin: (event: MouseEvent) => {
+      onLogin: (event: Event) => {
         event.preventDefault();
         const login = this.refs.login.getValue();
         const password = this.refs.password.getValue();
         if (!login || !password) {
-          console.log(!login && !password);
           return;
         }
-        console.log(login, password);
-        navigate('chat');
+        signin({
+          login,
+          password,
+        }).catch((error) => {
+          this.refs.errorLine.setProps({ error_message: error });
+          console.log('login error', error);
+        });
       },
       toRegister: () => {
-        navigate('register');
+        router.go('/sign-up');
       },
     });
   }
+
+  // componentDidMount(): void {
+  //   const form = document.querySelector('form');
+  //   form?.addEventListener('submit', () => this.props.onLogin);
+  // }
 
   protected render() {
     return LoginComponent;

@@ -1,1 +1,3 @@
-export { ChatBlock } from './chat_block.ts';
+import ChatBlock from './chat_block';
+
+export default ChatBlock;

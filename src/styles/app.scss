@@ -4,13 +4,16 @@
 @import '/src/pages/password/password';
 @import '/src/pages/error/error';
 @import '/src/components/auth_form/auth_form';
+@import '/src/components/modal/modal';
 @import '/src/components/button/button';
 @import '/src/components/input_field/input_field';
 @import '/src/components/chats/chats';
 @import '/src/components/search/search';
+@import '/src/components/create_chat/create_chat';
 @import '/src/components/chat_item/chat_item';
 @import '/src/components/chat_block/chat_block';
 @import '/src/components/chat_header/chat_header';
+@import '/src/components/chat_users/chat_users';
 @import '/src/components/chat_input/chat_input';
 @import '/src/components/user_icon/user_icon';
 @import '/src/components/messages/messages';
@@ -21,4 +24,8 @@
 
 .layout {
   display: flex;
+}
+
+.form-error {
+  padding: 16px 0 0;
 }

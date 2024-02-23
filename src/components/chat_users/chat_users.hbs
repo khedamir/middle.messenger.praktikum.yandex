@@ -1,0 +1,26 @@
+<div class='chat-users'>
+  <div class='search-user'>
+    <div class='search-user__header'>
+      {{{ChatInputField
+        ref='userName'
+        name='user_name'
+        placeholder='User login'
+        validate=validate.message
+      }}}
+      {{{Button label='Search' classes='modal-button' onClick=onClick}}}
+    </div>
+    <div class='search-user__body'>
+      <h3>Search result:</h3>
+      {{#each searchUsers}}
+        {{{SearchUserItem user=this}}}
+      {{/each}}
+    </div>
+  </div>
+
+  <div class='users'>
+    <h3>Chat users:</h3>
+    {{#each openDialogUsers}}
+      {{{ChatUserItem user=this}}}
+    {{/each}}
+  </div>
+</div>

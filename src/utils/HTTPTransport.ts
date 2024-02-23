@@ -1,69 +1,64 @@
-type Options = {
+import constants from '../constants';
+import queryStringify from './queryStringify';
+
+export type Options = {
   method: METHODS;
-  headers?: object;
+  headers?: { [key: string]: string };
   data?: unknown;
   timeout?: number;
 };
 
-type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
+type OptionsWithoutMethod = Omit<Options, 'method'>;
+type HTTPMethod = (
+  url: string,
+  options?: OptionsWithoutMethod,
+) => Promise<XMLHttpRequest>;
 
-enum METHODS {
+export enum METHODS {
   GET = 'GET',
   PUT = 'PUT',
   POST = 'POST',
   DELETE = 'DELETE',
 }
 
-function queryStringify(data: object = {}) {
-  if (typeof data !== 'object') {
-    throw new Error('Data must be object');
+export class HTTPTransport {
+  private apiUrl: string = '';
+  constructor(apiPath: string) {
+    this.apiUrl = `${constants.HOST}${apiPath}`;
   }
 
-  const keys: string[] = Object.keys(data);
-  return keys.reduce((result, key, index) => {
-    return `${result}${key}=${data[key as keyof typeof data]}${
-      index < keys.length - 1 ? '&' : ''
-    }`;
-  }, '?');
-}
-
-export class HTTPTransportProfi {
   get: HTTPMethod = (url, options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.GET },
-      options?.timeout,
-    );
+    return this.request(url, {
+      ...options,
+      method: METHODS.GET,
+    });
   };
 
   post: HTTPMethod = (url, options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.POST },
-      options?.timeout,
-    );
+    return this.request(url, {
+      ...options,
+      method: METHODS.POST,
+    });
   };
 
   put: HTTPMethod = (url, options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.PUT },
-      options?.timeout,
-    );
+    return this.request(url, {
+      ...options,
+      method: METHODS.PUT,
+    });
   };
 
   delete: HTTPMethod = (url, options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.DELETE },
-      options?.timeout,
-    );
+    return this.request(url, {
+      ...options,
+      method: METHODS.DELETE,
+    });
   };
 
-  request = (url: string, options: Options, timeout = 5000) => {
-    const { headers = {}, method, data } = options;
+  request = (url: string, options: Options): Promise<XMLHttpRequest> => {
+    const { headers = {}, method, data, timeout = 5000 } = options;
 
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
       if (!method) {
         reject('No method');
         return;
@@ -72,11 +67,25 @@ export class HTTPTransportProfi {
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
 
-      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+      xhr.open(
+        method,
+        isGet && !!data
+          ? `${this.apiUrl}${url}${queryStringify(data)}`
+          : `${this.apiUrl}${url}`,
+      );
 
-      Object.keys(headers).forEach((key) => {
-        xhr.setRequestHeader(key, headers[key as keyof typeof headers]);
-      });
+      !headers['Content-Type'] &&
+        !(data instanceof FormData) &&
+        (headers['content-type'] = 'application/json');
+
+      for (const key in headers) {
+        if (Object.prototype.hasOwnProperty.call(headers, key)) {
+          xhr.setRequestHeader(key, headers[key]);
+        }
+      }
+
+      xhr.timeout = timeout;
+      xhr.withCredentials = true;
 
       xhr.onload = function () {
         resolve(xhr);
@@ -84,16 +93,46 @@ export class HTTPTransportProfi {
 
       xhr.onabort = reject;
       xhr.onerror = reject;
-
-      xhr.timeout = timeout;
       xhr.ontimeout = reject;
 
       if (isGet || !data) {
         xhr.send();
       } else {
-        const json = JSON.stringify(data);
-        xhr.send(json);
+        const body = data instanceof FormData ? data : JSON.stringify(data);
+        xhr.send(body);
       }
     });
   };
 }
+
+// export function fetchWithRetry(
+//   url: string,
+//   options: Options,
+//   http: HTTPTransport,
+//   retries = 2,
+// ) {
+//   return new Promise((resolve, reject) => {
+//     let attempts = 0;
+
+//     const errorHandler = (error: unknown) => {
+//       attempts++;
+
+//       if (attempts >= retries) {
+//         reject(error);
+//       } else {
+//         makeRequest();
+//       }
+//     };
+
+//     const makeRequest = async () => {
+//       try {
+//         const data = await http.request(url, options);
+//         return data.response;
+//       } catch (e) {
+//         resolve(errorHandler);
+//       }
+//     };
+
+//     return makeRequest();
+//   });
+// }

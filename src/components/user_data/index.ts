@@ -1,1 +1,3 @@
-export { UserData } from './user_data.ts';
+import UserData from './user_data';
+
+export default UserData;

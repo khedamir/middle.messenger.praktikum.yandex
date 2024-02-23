@@ -1,20 +1,20 @@
-<div class="message message__{{type}}">
-  {{{ UserIcon}}}
+<div class='message message__{{getMessageType message.user_id}}'>
+  {{{UserIcon}}}
   {{#if image}}
-   <div class="message-block message-block__image">
-     <img src="./background-image.jpg" alt="message-image">
-     <span class="description">
-      <img class="sent" src="./svg/sent-icon.svg" alt="sent">
-      <span class="time">11:56</span>
-     </span>
-   </div>
+    <div class='message-block message-block__image'>
+      <img src='./background-image.jpg' alt='message-image' />
+      <span class='description'>
+        <img class='sent' src='./svg/sent-icon.svg' alt='sent' />
+        <span class='time'>11:56</span>
+      </span>
+    </div>
   {{else}}
-  <div class="message-block message-block__text">
-    <span class="text">{{text}}</span>
-    <span class="description">
-      <img class="sent" src="./svg/sent-icon.svg" alt="sent">
-      <span class="time">11:56</span>
-    </span>
-  </div>
+    <div class='message-block message-block__text'>
+      <span class='text'>{{message.content}}</span>
+      <span class='description'>
+        <img class='sent' src='./svg/sent-icon.svg' alt='sent' />
+        <span class='time'>{{message.time}}</span>
+      </span>
+    </div>
   {{/if}}
 </div>
