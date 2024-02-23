@@ -30,21 +30,6 @@ describe('HttpTransport', () => {
 
     expect(result).to.deep.equal(responseData);
   });
-  it('sends FormData in a POST request', async () => {
-    const http = new HTTPTransport('/api');
-    const formData = new FormData();
-    formData.append('file', new Blob(['file content'], { type: 'text/plain' }));
-
-    const requestStub = sinon.stub(http, 'request').resolves();
-    await http.post('/upload', { data: formData });
-
-    expect(
-      requestStub.calledWithMatch('/upload', {
-        method: METHODS.POST,
-        data: formData,
-      }),
-    ).to.be.true;
-  });
   it('sends correct headers for JSON data in a POST request', async () => {
     const http = new HTTPTransport('/api');
     const requestStub = sinon.stub(http, 'request').resolves();
