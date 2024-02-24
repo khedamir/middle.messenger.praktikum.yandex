@@ -11,12 +11,17 @@
     "isolatedModules": true,
     "noEmit": true,
     "strict": true,
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "strictNullChecks": true
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
   },
   "include": ["src"]
 }
